@@ -1,0 +1,84 @@
+﻿body {
+    padding-top: 70px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+/*input,
+select,
+textarea {
+    max-width: 280px;
+}*/
+
+/* styles for validation helpers */
+.field-validation-error {
+    color: #b94a48;
+}
+
+.field-validation-valid {
+    display: none;
+}
+
+input.input-validation-error {
+    border: 1px solid #b94a48;
+}
+
+input[type="checkbox"].input-validation-error {
+    border: 0 none;
+}
+
+.validation-summary-errors {
+    color: #b94a48;
+}
+
+.validation-summary-valid {
+    display: none;
+}
+
+.menu-toggle {
+  position: relative;
+  float: right;
+  padding: 9px 10px;
+  margin-top: 8px;
+  margin-right: 15px;
+  margin-bottom: 8px;
+  background-color: black;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+
+.menu-toggle .icon-bar {
+  display: block;
+  width: 22px;
+  height: 2px;
+  border-radius: 1px;
+  background: #ccc;
+}
+
+.menu-toggle .icon-bar + .icon-bar {
+  margin-top: 4px;
+}
+
+.panel > .panel-heading {
+    text-align: center;
+}
+
+.table tbody > tr > th,
+.panel > .panel-heading,
+.table tbody > tr > td
+{
+    text-align: center;
+}
+
+.panel > .panel-heading
+{
+    font-weight: bold;
+}
+
+

@@ -1,0 +1,47 @@
+﻿@model IEnumerable<Projeto.TCC.Painel.Models.Resposta>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<p>
+    @Html.ActionLink("Nova Resposta", "Create", new { perguntaId = ViewBag.PerguntaId })
+</p>
+
+<div class="panel panel-default">
+    <div class="panel-heading">Gerenciar Respostas: @ViewBag.Pergunta</div>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Atributo.Titulo)
+            </th>
+            <th>
+                Atributo
+            </th>
+            <th>
+                Ações
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Titulo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Atributo.Titulo)
+                </td>
+                <td>
+                    @Html.ActionLink("Editar", "Edit", new { id = item.Id }) |
+                    @Html.ActionLink("Detalhes", "Details", new { id = item.Id }) |
+                    @Html.ActionLink("Deletar", "Delete", new { id = item.Id })
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+<p>
+    <a href="@Url.Action("Index", "Perguntas", new { questionarioId = ViewBag.QuestionarioId })">Voltar para Perguntas</a>
+</p>

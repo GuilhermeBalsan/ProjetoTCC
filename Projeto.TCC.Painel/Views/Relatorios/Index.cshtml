@@ -1,0 +1,53 @@
+﻿@model IEnumerable<Projeto.TCC.Painel.Models.Relatorio>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+@if (!String.IsNullOrWhiteSpace(@ViewBag.Mensagem))
+{ <div class="alert alert-warning" role="alert">@ViewBag.Mensagem</div> }
+
+<p>
+    @Html.ActionLink("Novo Relatório", "Create", new { atributoId = ViewBag.AtributoId })
+</p>   
+
+
+<div class="panel panel-default">
+    <div class="panel-heading">Gerenciar Relatórios: @ViewBag.Atributo</div>
+    <table class="table">
+        <tr>
+            <th>
+                Atributo
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Nome)
+            </th>            
+            <th>
+                Ações
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Atributo.Titulo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nome)
+                </td>               
+                <td>
+                    @Html.ActionLink("Editar", "Edit", new { id = item.Id }) |
+                    @Html.ActionLink("Detalhes", "Details", new { id = item.Id }) |
+                    @Html.ActionLink("Deletar", "Delete", new { id = item.Id })
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
+
+    <p>
+        <a href="@Url.Action("Index", "Atributos")">Voltar para Atributos</a>
+    </p>

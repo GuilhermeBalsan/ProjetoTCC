@@ -1,0 +1,63 @@
+﻿@model Projeto.TCC.Painel.Models.Questionario
+
+@{
+    ViewBag.Title = "Criar";
+}
+
+<h2>Criar</h2>
+
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Questionario</h4>
+        <hr />
+        @Html.ValidationSummary(true)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Nome, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Nome)
+                @Html.ValidationMessageFor(model => model.Nome)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Descricao, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.Hidden("Descricao", "")
+                <textarea id="HtmlDescricao"></textarea>
+                @Html.ValidationMessageFor(model => model.Descricao)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" id="submit" value="Criar" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Voltar para Questionários", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+<script>
+    $(document).ready(function () {       
+
+        $("#HtmlDescricao").Editor();
+
+        $("#submit").click(function () {
+            var textoHtml = $("#HtmlDescricao").Editor("getText");
+            $("#Descricao").val(textoHtml);
+        });
+
+    });
+</script>

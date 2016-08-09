@@ -1,0 +1,44 @@
+﻿@model IEnumerable<Projeto.TCC.Painel.Models.Questionario>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<p>
+    @Html.ActionLink("Novo Questionário", "Create")
+</p>
+<div class="panel panel-default">
+    <div class="panel-heading">Gerenciar Questionários</div>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Nome)
+            </th>
+            <th>
+                Qtde. Perguntas
+            </th>
+            <th>
+                Ações
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Perguntas.Count)
+                </td>
+                <td>
+                    @Html.ActionLink("Editar", "Edit", new { id = item.Id }) |
+                    @Html.ActionLink("Detalhes", "Details", new { id = item.Id }) |
+                    @Html.ActionLink("Deletar", "Delete", new { id = item.Id }) |
+                    <a href="@Url.Action("Index", "Perguntas", new { questionarioId = item.Id })">Gerenciar Perguntas</a>
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>

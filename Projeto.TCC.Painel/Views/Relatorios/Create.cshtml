@@ -1,0 +1,73 @@
+﻿@model Projeto.TCC.Painel.Models.Relatorio
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Relatorio</h4>
+        <hr />
+        @Html.ValidationSummary(true)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Nome, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Nome)
+                @Html.ValidationMessageFor(model => model.Nome)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Mensagem, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.Hidden("Mensagem", "")
+                <textarea id="HtmlMensagem"></textarea>
+                @Html.ValidationMessageFor(model => model.Mensagem)
+            </div>
+        </div>
+
+        @*<div class="form-group">
+            @Html.LabelFor(model => model.AtributoId, "AtributoId", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("AtributoId", String.Empty)
+                @Html.ValidationMessageFor(model => model.AtributoId)
+            </div>
+        </div>*@
+
+        <input type="hidden" value="@ViewBag.AtributoId" id="AtributoId" name="AtributoId" />
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" id="submit" value="Salvar" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Voltar para Relatórios", "Index", new { atributoId = @ViewBag.AtributoId })
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+<script>
+    $(document).ready(function () {
+
+        $("#HtmlMensagem").Editor();
+
+        $("#submit").click(function () {
+            var textoHtml = $("#HtmlMensagem").Editor("getText");
+            $("#Mensagem").val(textoHtml);
+        });
+
+    });
+</script>

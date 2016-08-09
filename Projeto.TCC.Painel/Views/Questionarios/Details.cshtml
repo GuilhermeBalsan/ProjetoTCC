@@ -1,0 +1,64 @@
+﻿@model Projeto.TCC.Painel.Models.Questionario
+
+@{
+    ViewBag.Title = "Detalhes";
+}
+
+<h2>Detalhes</h2>
+
+<div>
+    <h4>Questionário</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Descricao)
+        </dt>
+
+        <dd id="Descricao">
+
+        </dd>
+
+        @foreach (var pergunta in Model.Perguntas)
+        {
+            foreach (var resposta in pergunta.Respostas)
+            {
+
+                <dt>
+                    @resposta.Pergunta.Titulo
+                </dt>
+            
+                <dd>
+                    @resposta.Titulo - @resposta.Atributo.Titulo
+                </dd>
+            
+            }
+            
+        }
+
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Editar", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Voltar para Questionários", "Index")
+</p>
+
+<script>
+    $(document).ready(function () {
+        var valor = "@ViewBag.DescricaoHTML";
+        $("#Descricao").html(convert(valor));
+    });
+
+    var convert = function (convert) {
+        return $("<span />", { html: convert }).text();
+    }
+
+</script>

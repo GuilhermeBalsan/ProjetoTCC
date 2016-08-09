@@ -1,0 +1,151 @@
+﻿@model Projeto.TCC.Painel.Models.Questionario
+
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="row">
+    <div class="col-md-8 col-md-offset-2">
+
+
+        <div class="row">
+            <div class="col-md-12">
+                <span id="Descricao"></span>
+            </div>
+        </div>
+        <hr />
+
+        <form id="formResultado" method="post" action="@Url.Action("Resultado", "Home")">
+
+
+            <div class="row">
+                <div class="col-md-12" style="border: 1px solid #e4e4e4;">
+                    <ul id="slider">
+                        @{
+
+                            int i = 1;
+
+                            foreach (var pergunta in Model.Perguntas)
+                            {
+                                <li class="panel@(i)">
+
+                                    <div class="col-md-12" style="padding: 20px;">
+
+                                        <div class="col-md-12">
+                                            <p style="border-bottom: 1px solid #e4e4e4;">@(i + "/" + ViewBag.QtdePerguntas) </p>
+                                        </div>
+
+                                        <div class="col-md-12">
+                                            <h2 style="font-size: 36px; line-height: 1.2em; font-weight: 700 !important;">@Html.DisplayFor(modelItem => pergunta.Titulo)</h2>
+                                        </div>
+
+                                        <div class="col-md-12" style="padding: 20px 60px 0 60px;">
+                                            @foreach (var resposta in pergunta.Respostas)
+                                            {
+                                                <div class="radio" style="border-bottom: 1px solid #e4e4e4; padding: 12px 0; margin-left: 12px; line-height: 1.2em; font-weight: 700 !important;">
+                                                    <label>
+                                                        <input type="radio" name="@Html.DisplayFor(modelItem => resposta.Pergunta.Id)" id="@Html.DisplayFor(modelItem => resposta.Id)" value="@Html.DisplayFor(modelItem => resposta.AtributoId)" required>
+                                                        @Html.DisplayFor(modelItem => resposta.Titulo)
+                                                    </label>
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+                                </li>
+
+
+                                            i++;
+
+                            }
+
+
+                        }
+                    </ul>
+
+                </div>
+            </div>
+
+        </form>
+
+    </div>
+</div>
+
+<script>
+    $(function () {
+
+        $("#Descricao").html(convert("@Model.Descricao"));
+
+        $('#slider').anythingSlider({
+
+            // Appearance
+
+            mode: 'h',   // fade mode - new in v1.8!
+            navigationSize: false,     // Set this to the maximum number of visible navigation tabs; false to disable
+            buildArrows: false,      // If true, builds the forwards and backwards buttons
+            buildNavigation: false,      // If true, builds a list of anchor links to link to each panel
+            buildStartStop: false,      // If true, builds the start/stop button
+
+
+            // Function
+            enableArrows: false,      // if false, arrows will be visible, but not clickable.
+            enableNavigation: false,      // if false, navigation links will still be visible, but not clickable.
+            enableStartStop: false,      // if false, the play/stop button will still be visible, but not clickable. Previously "enablePlay"
+            enableKeyboard: false,      // if false, keyboard arrow keys will not work for this slider.
+
+            // Navigation
+            startPanel: 1,         // This sets the initial panel
+            changeBy: 1,         // Amount to go forward or back when changing panels.
+            hashTags: false,      // Should links change the hashtag in the URL?
+            infiniteSlides: true,      // if false, the slider will not wrap & not clone any panels
+            navigationFormatter: null,      // Details at the top of the file on this use (advanced use)
+            navigationSize: false,     // Set this to the maximum number of visible navigation tabs; false to disable
+
+            onSlideBegin: function (e, slider) {
+                // keep the current navigation tab in view
+                slider.navWindow(slider.targetPage);
+            },
+        });
+
+        $('input:radio').change(
+            function () {
+
+                var nome = this.name;
+                var valor = $(this).val();
+
+                ajaxRespostas(nome, valor);
+
+                proxSlide();
+
+            }
+        );
+    });
+
+    var ajaxRespostas = function (nome, valor) {
+        $.ajax({
+            url: "/Home/Respostas",
+            type: 'POST',
+            contentType: "application/json; charset=utf-8",
+            dataType: 'json',
+            data: JSON.stringify({
+                perguntaId: nome,
+                atributoId: valor
+            }),
+            async: false
+        });
+    }
+
+    var proxSlide = function () {
+        if ($('#slider').data('AnythingSlider').currentPage == "@ViewBag.QtdePerguntas") {
+
+            $("#formResultado").submit();
+
+        }
+        else {
+            $('#slider').data('AnythingSlider').goForward();
+        }
+    }
+
+    var convert = function (convert) {
+        return $("<span />", { html: convert }).text();
+    }
+</script>

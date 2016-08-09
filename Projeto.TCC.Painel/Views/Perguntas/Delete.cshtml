@@ -1,0 +1,40 @@
+﻿@model Projeto.TCC.Painel.Models.Pergunta
+
+@{
+    ViewBag.Title = "Deletar";
+}
+
+<h2>Deletar</h2>
+
+<h3>Você tem certeza que quer deletar?</h3>
+<div>
+    <h4>Pergunta</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Questionario.Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Questionario.Nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Titulo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Titulo)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Deletar" class="btn btn-default" /> |
+            @Html.ActionLink("Voltar para Perguntas", "Index", new { questionarioId = Model.QuestionarioId })
+        </div>
+    }
+</div>

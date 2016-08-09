@@ -1,0 +1,48 @@
+﻿@model Projeto.TCC.Painel.Models.Relatorio
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Relatorio</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Atributo.Titulo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Atributo.Titulo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Mensagem)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Mensagem)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Deletar" class="btn btn-default" /> |
+            @Html.ActionLink("Voltar para Relatórios", "Index", new { atributoId = Model.AtributoId })
+        </div>
+    }
+</div>

@@ -1,0 +1,54 @@
+﻿@model Projeto.TCC.Painel.Models.Relatorio
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Detalhes</h2>
+
+<div>
+    <h4>Relatório</h4>
+	<hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Atributo.Titulo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Atributo.Titulo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Mensagem)
+        </dt>
+
+        <dd id="Descricao">
+
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Editar", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Voltar para Relatórios", "Index", new { atributoId = Model.AtributoId })
+</p>
+
+<script>
+    $(document).ready(function () {
+        var valor = "@ViewBag.DescricaoHTML";
+        $("#Descricao").html(convert(valor));
+    });
+
+    var convert = function (convert) {
+        return $("<span />", { html: convert }).text();
+    }
+
+</script>

@@ -1,0 +1,114 @@
+﻿@model Projeto.TCC.Painel.Models.Administrador
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap Login Form Template</title>
+
+    <!-- CSS -->
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+
+    <link rel="stylesheet" type="text/css" href="~/Content/sidebar.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/Login.css">
+    <link rel="stylesheet" href="~/Content/font-awesome.min.css">
+
+    <script src="~/Scripts/jquery.backstretch.min.js"></script>
+
+</head>
+
+<body>
+
+    <!-- Top content -->
+    <div class="top-content">
+
+        <div class="inner-bg">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-8 col-sm-offset-2 text">
+                        <h1><strong>Bootstrap</strong> Login Form</h1>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6 col-sm-offset-3 form-box">
+                        <div class="form-top">
+                            <div class="form-top-left">
+                                <h3>Login to our site</h3>
+                                <p>Enter your username and password to log on:</p>
+                                <p style="font-weight: bold; color: #de615e">@ViewBag.Mensagem</p>
+                            </div>
+                            <div class="form-top-right">
+                                <i class="fa fa-lock"></i>
+                            </div>
+                        </div>
+                        <div class="form-bottom">
+                            <form role="form" action="@Url.Action("Login", "Login")" method="post" class="login-form">
+                                <div class="form-group">
+
+                                    @Html.LabelFor(model => model.Nome, new { @class = "sr-only" })
+                                    @Html.TextBoxFor(model => model.Nome, new { @class = "form-username form-control", placeholder = "Usuário" })                                    
+                                </div>
+                                <div class="form-group">                                   
+                                    @Html.LabelFor(model => model.Senha, new { @class = "sr-only" })
+                                    @Html.PasswordFor(model => model.Senha, new { @class = "form-username form-control", placeholder = "Senha" })
+
+                                </div>
+                                <button type="submit" class="btn">Sign in!</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+</body>
+
+</html>
+
+<script>
+    $(document).ready(function () {
+
+        /*
+            Fullscreen background
+        */
+        $.backstretch("/img/bg.jpg");
+
+        /*
+            Form validation
+        */
+        $('.login-form input[type="text"], .login-form input[type="password"], .login-form textarea').on('focus', function () {
+            $(this).removeClass('input-error');
+        });
+
+        $('.login-form').on('submit', function (e) {
+
+            $(this).find('input[type="text"], input[type="password"], textarea').each(function () {
+                if ($(this).val() == "") {
+                    e.preventDefault();
+                    $(this).addClass('input-error');
+                }
+                else {
+                    $(this).removeClass('input-error');
+                }
+            });
+
+        });
+
+
+    });
+</script>

@@ -1,0 +1,26 @@
+﻿@model Projeto.TCC.Painel.Models.Atributo
+
+@{
+    ViewBag.Title = "Detalhes";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Atributo</h4>
+	<hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Titulo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Titulo)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Editar", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Voltar para Atributos", "Index")
+</p>

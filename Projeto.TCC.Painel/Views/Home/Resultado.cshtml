@@ -1,0 +1,31 @@
+﻿@model Projeto.TCC.Painel.Models.Relatorio
+
+@{
+    ViewBag.Title = "Resultado";
+}
+
+<h4>Relatorio</h4>
+<hr />
+
+<div class="row">
+    <div class="col-md-8 col-md-offset-2">
+
+        <div class="row">
+            <div class="col-md-12">
+                <span id="Resultado"></span>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $("#Resultado").html(convert("@ViewBag.Relatorio"));        
+    });
+
+    var convert = function (convert) {
+        return $("<span />", { html: convert }).text();
+    }
+
+</script>
