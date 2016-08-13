@@ -17,7 +17,10 @@ namespace Projeto.TCC.Painel.Controllers
         public ActionResult Index(bool erro = false)
         {
             if (erro)
-                @ViewBag.Mensagem = "teste";
+            {
+                @ViewBag.Mensagem = "Usuário ou Senha inválidos";
+                erro = false;
+            }
 
             return View();
         }

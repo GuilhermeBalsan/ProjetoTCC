@@ -12,7 +12,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bootstrap Login Form Template</title>
+    <title>Acesso Administrativo - My ASP.NET Application</title>
 
     <!-- CSS -->
     @Styles.Render("~/Content/css")
@@ -37,7 +37,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-sm-8 col-sm-offset-2 text">
-                        <h1><strong>Bootstrap</strong> Login Form</h1>
+                        <h1><strong>Acesso Administrativo</strong></h1>
 
                     </div>
                 </div>
@@ -45,8 +45,8 @@
                     <div class="col-sm-6 col-sm-offset-3 form-box">
                         <div class="form-top">
                             <div class="form-top-left">
-                                <h3>Login to our site</h3>
-                                <p>Enter your username and password to log on:</p>
+                                <h3>Faça login no painel</h3>
+                                <p>Insira seu usuário e senha para continuar:</p>
                                 <p style="font-weight: bold; color: #de615e">@ViewBag.Mensagem</p>
                             </div>
                             <div class="form-top-right">
@@ -65,7 +65,7 @@
                                     @Html.PasswordFor(model => model.Senha, new { @class = "form-username form-control", placeholder = "Senha" })
 
                                 </div>
-                                <button type="submit" class="btn">Sign in!</button>
+                                <button type="submit" class="btn">Acessar</button>
                             </form>
                         </div>
                     </div>
