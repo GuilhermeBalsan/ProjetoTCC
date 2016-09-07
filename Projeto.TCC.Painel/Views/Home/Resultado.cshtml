@@ -17,8 +17,17 @@
             foreach(var mensagem in Model)
             {                                   
                 <div class="row">
+                    @*<div class="col-md-12">
+                        @mensagem.Atributo
+                    </div>*@
                     <div class="col-md-12">
-                        @mensagem.Porcentagem
+                        <div class="c100 p@(mensagem.Porcentagem) big">
+                            <span>@mensagem.Porcentagem%</span>
+                            <div class="slice">
+                                <div class="bar"></div>
+                                <div class="fill"></div>
+                            </div>
+                        </div>
                     </div>
                     <div class="col-md-12">
                         <span id="Descricao@(aux)"></span>     
@@ -31,6 +40,8 @@
                 </div>
             
                 aux++;
+                
+                <br />
             }
         }
 

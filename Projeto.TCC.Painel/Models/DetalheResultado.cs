@@ -12,7 +12,9 @@ namespace Projeto.TCC.Painel.Models
     {
         public int Id { get; set; }
 
-        public Atributo Atributo { get; set; }
+        public int AtributoId { get; set; }
+
+        public virtual Atributo Atributo { get; set; }
 
         public int Quantidade { get; set; }        
     }

@@ -106,6 +106,7 @@ namespace Projeto.TCC.Painel.Controllers
                 Mensagem mensagem = new Mensagem();
                 mensagem.Porcentagem = ((Math.Round(porcentagem, 2))*100);
                 mensagem.Descricao = WebUtility.HtmlDecode(relatorios.Where(w => w.AtributoId == atributoId).Select(s => s.Mensagem).FirstOrDefault().ToString());
+                mensagem.Atributo = resultado.Atributo.Titulo.ToString();
 
                 listMensagem.Add(mensagem);
             }

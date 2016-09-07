@@ -15,39 +15,36 @@ namespace Projeto.TCC.Painel.Controllers
         private ProjetoTCCPainelContext db = new ProjetoTCCPainelContext();
 
         // GET: /Resultados/
-        //public ActionResult Index()
-        //{
-        //    ViewBag.Questionarios = new SelectList(db.Questionarios, "Id", "Nome");
-        //    var resultados = db.Resultados.Include(r => r.Atributo).Include(r => r.Questionario);
-        //    return View(resultados.ToList());
-        //}
+        public ActionResult Index()
+        {
+            var resultados = db.Resultados.Include(r => r.Usuario).Include(r => r.DetalhesResultado);
+            return View(resultados.ToList());
+        }
 
-        //[HttpPost, ActionName("Filtro")]
-        //public ActionResult Filtro(string nome, int? questionarioId)
-        //{
-        //    var resultados = db.Resultados.Include(r => r.Atributo).Include(r => r.Questionario);
-
-        //    if (!String.IsNullOrWhiteSpace(nome))
-        //        resultados = resultados.Where(w => w.Nome.ToUpper() == nome.ToUpper());
-
-        //    if (questionarioId != null)
-        //        resultados = resultados.Where(w => w.QuestionarioId == questionarioId);
-
-        //    var filtro = resultados.ToList();
-
-        //    ViewBag.Questionarios = new SelectList(db.Questionarios, "Id", "Nome");
-
-        //    return View("Index", filtro);
-        //}
+        // GET: /Resultados/Details/5
+        public ActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Resultado resultado = db.Resultados.Include(r => r.Usuario).Include(r => r.DetalhesResultado).Where(w => w.Id == id).FirstOrDefault();
+            if (resultado == null)
+            {
+                return HttpNotFound();
+            }
+            return View(resultado);
+        }
 
         
-        //protected override void Dispose(bool disposing)
-        //{
-        //    if (disposing)
-        //    {
-        //        db.Dispose();
-        //    }
-        //    base.Dispose(disposing);
-        //}
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
+        }
     }
 }

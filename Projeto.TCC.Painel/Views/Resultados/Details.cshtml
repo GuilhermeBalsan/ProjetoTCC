@@ -1,0 +1,64 @@
+﻿@model Projeto.TCC.Painel.Models.Resultado
+
+@{
+    ViewBag.Title = "Detalhes";
+    Layout = "~/Views/Shared/_LayoutAdm.cshtml";
+}
+
+<h2>Detalhes</h2>
+
+<div>
+    <h4>Resultado</h4>
+	<hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Usuário
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Usuario.Nome)
+        </dd>
+
+        <dt>
+            Questionário
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Usuario.Questionario.Nome)
+        </dd>
+
+        <br />
+
+        @{
+
+    foreach (var resultado in Model.DetalhesResultado)
+    {
+
+        <div class="row">
+            <div class="col-md-6">
+                <dt>
+                    Atributo
+                </dt>
+
+                <dd>
+                    @resultado.Atributo.Titulo
+                </dd>
+            </div>
+            <div class="col-md-6">
+                <dt>
+                    Quantidade
+                </dt>
+
+                <dd>
+                    @resultado.Quantidade
+                </dd>
+            </div>
+        </div>
+    }
+}
+
+    </dl>
+</div>
+<p>    
+    @Html.ActionLink("Voltar para Lista", "Index")
+</p>
