@@ -7,21 +7,20 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Projeto.TCC.Painel.Models
 {
-    [Table("Resultados")]
-    public class Resultado
+    [Table("Usuarios")]
+    public class Usuario
     {
         public int Id { get; set; }
+        
+        public string Nome { get; set; }
 
-        public int UsuarioId { get; set; }
+        public string Email { get; set; }
 
-        public virtual Usuario Usuario { get; set; }
+        public string Senha { get; set; }
 
         public int QuestionarioId { get; set; }
-        
 
-        //public virtual Questionario Questionario { get; set; }
-
-        public List<DetalheResultado> DetalhesResultado { get; set; }
+        public virtual Questionario Questionario { get; set; }
 
     }
 }

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Data.Entity;
 
 namespace Projeto.TCC.Painel.Controllers
 {
@@ -21,21 +22,39 @@ namespace Projeto.TCC.Painel.Controllers
 
         private static List<RespostasFormulario> listRespostas = new List<RespostasFormulario>();        
 
-        public ActionResult Index()
+        public ActionResult Index(bool erro = false)
         {
-            ViewBag.QuestionarioId = new SelectList(db.Questionarios, "Id", "Nome");
+            if (erro)
+            {
+                @ViewBag.Mensagem = "Usuário ou Senha inválidos";
+                erro = false;
+            }
+
             Session.RemoveAll();
             return View();
         } 
        
-        public ActionResult Sessao(string nome, string email, int QuestionarioId)
+        public ActionResult Sessao(string Nome, string Senha)
         {
-            Session["Nome"] = nome;
-            Session["Email"] = email;
-            Session["QuestionarioId"] = QuestionarioId;
-            Session["Questionario"] = db.Questionarios.Where(w => w.Id == QuestionarioId).Select(s => s.Nome).FirstOrDefault();
+            Usuario usuario = db.Usuarios.Where(w => w.Nome == Nome && w.Senha == Senha).FirstOrDefault();
+
+            if(usuario != null)
+            {
+                Session["UsuarioId"] = usuario.Id;
+                Session["Nome"] = usuario.Nome.ToString();
+                Session["Email"] = usuario.Email.ToString();
+                Session["QuestionarioId"] = Convert.ToInt32(usuario.QuestionarioId);
+                Session["Questionario"] = usuario.Questionario.Nome.ToString();                
+
+                return RedirectToAction("Perguntas");
+            }
+            else
+            {
+                return RedirectToAction("Index", new { erro = true });
+            }
+           
             
-            return RedirectToAction("Perguntas");
+            
         }
 
         public ActionResult Perguntas()
@@ -67,43 +86,60 @@ namespace Projeto.TCC.Painel.Controllers
 
         public ActionResult Resultado()
         {
-            int resultadoAtributo = listRespostas.GroupBy(g => new { g.AtributoId })
-                                         .OrderByDescending(o => o.Count())
-                                         .Take(1)
-                                         .Select(s => s.Key.AtributoId)
-                                         .First();
+            InserirResultado();
 
-            InserirResultado(resultadoAtributo);
+            int usuarioId = Convert.ToInt32(Session["UsuarioId"]);
 
-            var relatorio = WebUtility.HtmlDecode(db.Relatorios.Where(w => w.AtributoId == resultadoAtributo).Select(s => s.Mensagem).FirstOrDefault());
-            ViewBag.Relatorio = relatorio;
+            var resultados = db.Resultados.Include(r => r.Usuario).Include(r => r.DetalhesResultado).Where(w => w.UsuarioId == usuarioId).FirstOrDefault();            
 
-            return View ();
+            List<Mensagem> listMensagem = new List<Mensagem>();
+
+            int quantidadePerguntas = resultados.Usuario.Questionario.Perguntas.Count();
+
+            var relatorios = db.Relatorios.ToList();
+
+            foreach(var resultado in resultados.DetalhesResultado)
+            {
+                double porcentagem = (double) resultado.Quantidade / quantidadePerguntas;
+                int atributoId = Convert.ToInt32(resultado.Atributo.Id);
+                
+                Mensagem mensagem = new Mensagem();
+                mensagem.Porcentagem = ((Math.Round(porcentagem, 2))*100);
+                mensagem.Descricao = WebUtility.HtmlDecode(relatorios.Where(w => w.AtributoId == atributoId).Select(s => s.Mensagem).FirstOrDefault().ToString());
+
+                listMensagem.Add(mensagem);
+            }
+
+            return View(listMensagem);
     
         }
 
-        public void InserirResultado(int atributoId)
+        public void InserirResultado()
         {
-            Resultado resultado = new Resultado() 
-            { 
-                AtributoId = atributoId,
-                Email = Session["Email"].ToString(),
-                Nome = Session["Nome"].ToString(),                
-                QuestionarioId = Convert.ToInt32(Session["QuestionarioId"])
-                
+            var resultadoAtributo = listRespostas.GroupBy(g => new { g.AtributoId })
+                                         .Select(g => new { g.Key.AtributoId, Count = g.Count() });
+
+            List<DetalheResultado> detalhesResultado = new List<DetalheResultado>();
+
+            foreach (var resultados in resultadoAtributo)
+            {
+                DetalheResultado detalheResultado = new DetalheResultado();
+                detalheResultado.Atributo = db.Atributos.Find(resultados.AtributoId);
+                detalheResultado.Quantidade = resultados.Count;
+                detalhesResultado.Add(detalheResultado);
+            }
+
+            Resultado resultado = new Resultado()
+            {
+                UsuarioId = Convert.ToInt32(Session["UsuarioId"]),
+                QuestionarioId = Convert.ToInt32(Session["QuestionarioId"]),
+                DetalhesResultado = detalhesResultado
+
             };
-            
+
             db.Resultados.Add(resultado);
-            db.SaveChanges();                        
+            db.SaveChanges();          
         }
+       
     }
 }
-
-/*
- qual atributo mais apareceu
- var mostFollowedQuestions = context.UserIsFollowingQuestion
-                                    .GroupBy(q => q.QuestionId)
-                                    .OrderByDescending(gp => gp.Count())
-                                    .Take(5)
-                                    .Select(g => g.Key).ToList();
- */

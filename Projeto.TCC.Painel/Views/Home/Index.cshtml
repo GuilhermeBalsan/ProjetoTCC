@@ -1,4 +1,4 @@
-﻿
+﻿@model Projeto.TCC.Painel.Models.Usuario
 @{
     Layout = null;
 }
@@ -79,14 +79,11 @@
         <section class="login-form">
             <form class="form" role="form" action="@Url.Action("Sessao", "Home")" method="post">
                 <img src="assets/images/logo.png" class="img-responsive" alt="" />
-                <input type="text" name="nome" placeholder="Nome" required class="form-control input-lg" />
-                <input type="email" name="email" placeholder="Email" required class="form-control input-lg" />
 
-                @*@Html.LabelFor(model => model.AtributoId, "AtributoId", new { @class = "control-label col-md-2" })*@
-                <div class="col-md-112">
-                    @Html.DropDownList("QuestionarioId", (IEnumerable<SelectListItem>)ViewBag.QuestionarioId, new { @class = "form-control input-lg" })
+                <p style="font-weight: bold; color: #de615e">@ViewBag.Mensagem</p>
 
-                </div>
+                <input type="text" name="Nome" placeholder="Nome" required class="form-control input-lg" />                
+                <input type="password" name="Senha" placeholder="Senha" required class="form-control input-lg" />              
 
                 <button type="submit" name="go" class="btn btn-lg btn-primary btn-block">Iniciar</button>
 
