@@ -17,22 +17,43 @@ namespace Projeto.TCC.Painel.Controllers
         // GET: /Resultados/
         public ActionResult Index()
         {
-            var resultados = db.Resultados.Include(r => r.Usuario).Include(r => r.DetalhesResultado);
-            return View(resultados.ToList());
+            var query = db.Resultados.Select(s => new { s.QuestionarioId, s.Usuario.Questionario.Nome }).Distinct().ToList();
+            
+            List<Questionario> questionarios = new List<Questionario>();
+
+            foreach(var q in query)
+            {               
+
+                Questionario questionario = new Questionario { Nome = q.Nome, Id = q.QuestionarioId };
+
+                questionarios.Add(questionario);
+            }
+
+            return View(questionarios);
+        }
+
+        public ActionResult Candidatos(int id)
+        {
+            AdoNet adoNet = new AdoNet();
+            DataTable dt = adoNet.ExecProcedure(id);
+
+            return View(dt);
         }
 
         // GET: /Resultados/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(int UsuarioId, int QuestionarioId)
         {
-            if (id == null)
+            if (UsuarioId == null && QuestionarioId == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Resultado resultado = db.Resultados.Include(r => r.Usuario).Include(r => r.DetalhesResultado).Where(w => w.Id == id).FirstOrDefault();
+            //Resultado resultado = db.Resultados.Include(r => r.Usuario).Include(r => r.DetalhesResultado).Where(w => w.Id == id).FirstOrDefault();
+            Resultado resultado = db.Resultados.Include(r => r.Usuario).Include(r => r.DetalhesResultado).Where(w => w.UsuarioId == UsuarioId && w.QuestionarioId == QuestionarioId).FirstOrDefault();
             if (resultado == null)
             {
                 return HttpNotFound();
             }
+            ViewBag.QuestionarioId = QuestionarioId;
             return View(resultado);
         }
 
@@ -46,5 +67,9 @@ namespace Projeto.TCC.Painel.Controllers
             }
             base.Dispose(disposing);
         }
+
+       
+
+
     }
 }

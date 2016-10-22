@@ -1,0 +1,44 @@
+﻿@model System.Data.DataTable
+@using System.Data;
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutAdm.cshtml";
+}
+
+<div class="panel panel-default">
+    <div class="panel-heading">Gerenciar Resultados</div>
+    <table class="table">
+        <tr>            
+
+            @for (int i = 3; i < Model.Columns.Count; i++ )
+            {
+                DataColumn col = Model.Columns[i];
+                <th>@col.ColumnName</th>
+            }
+
+            <th>Detalhes</th>
+
+        </tr>
+       
+
+        @for (int i = 0; i < Model.Rows.Count; i++)
+        {
+            DataRow row = Model.Rows[i];
+            
+            <tr>
+
+                @for (int y = 3; y < Model.Columns.Count; y++)
+                {
+                    DataColumn col = Model.Columns[y];
+                    
+                    <td>@row[col.ColumnName]</td>
+                }
+
+                <td>@Html.ActionLink("Detalhes", "Details", new { UsuarioId = row[1], QuestionarioId = row[2] })</td>
+                
+            </tr>
+        }       
+
+    </table>
+</div>

@@ -125,6 +125,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\PerguntasController.cs" />
+    <Compile Include="Controllers\PesosQuestionariosController.cs" />
     <Compile Include="Controllers\QuestionariosController.cs" />
     <Compile Include="Controllers\RelatoriosController.cs" />
     <Compile Include="Controllers\RespostasController.cs" />
@@ -135,10 +136,12 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Administrador.cs" />
+    <Compile Include="Models\AdoNet.cs" />
     <Compile Include="Models\Atributo.cs" />
     <Compile Include="Models\DetalheResultado.cs" />
     <Compile Include="Models\Mensagem.cs" />
     <Compile Include="Models\Pergunta.cs" />
+    <Compile Include="Models\PesoQuestionario.cs" />
     <Compile Include="Models\ProjetoTCCPainelContext.cs" />
     <Compile Include="Models\Questionario.cs" />
     <Compile Include="Models\Relatorio.cs" />
@@ -178,6 +181,7 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="Sql\procedure TCC Perfil.sql" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -242,6 +246,12 @@
     <Content Include="Views\Usuarios\Index.cshtml" />
     <Content Include="Views\Resultados\Details.cshtml" />
     <Content Include="Views\Resultados\Index.cshtml" />
+    <Content Include="Views\PesosQuestionarios\Create.cshtml" />
+    <Content Include="Views\PesosQuestionarios\Delete.cshtml" />
+    <Content Include="Views\PesosQuestionarios\Details.cshtml" />
+    <Content Include="Views\PesosQuestionarios\Edit.cshtml" />
+    <Content Include="Views\PesosQuestionarios\Index.cshtml" />
+    <Content Include="Views\Resultados\Candidatos.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

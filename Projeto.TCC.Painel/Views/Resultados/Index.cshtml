@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Projeto.TCC.Painel.Models.Resultado>
+﻿@model IEnumerable<Projeto.TCC.Painel.Models.Questionario>
 
 @{
     ViewBag.Title = "Index";
@@ -9,26 +9,21 @@
     <div class="panel-heading">Gerenciar Resultados</div>
     <table class="table">
         <tr>
+            
             <th>
-                @Html.DisplayNameFor(model => model.Usuario.Nome)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Usuario.Questionario.Nome)
+                @Html.DisplayNameFor(model => model.Nome)
             </th>
             <th></th>
         </tr>
 
         @foreach (var item in Model)
         {
-            <tr>
+            <tr>                
                 <td>
-                    @Html.DisplayFor(modelItem => item.Usuario.Nome)
+                    @Html.DisplayFor(modelItem => item.Nome)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Usuario.Questionario.Nome)
-                </td>
-                <td>
-                    @Html.ActionLink("Detalhes", "Details", new { id = item.Id })
+                    @Html.ActionLink("Candidatos", "Candidatos", new { id = item.Id })
                 </td>
             </tr>
         }

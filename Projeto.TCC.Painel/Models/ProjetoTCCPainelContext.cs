@@ -35,6 +35,8 @@ namespace Projeto.TCC.Painel.Models
         public System.Data.Entity.DbSet<Projeto.TCC.Painel.Models.Resultado> Resultados { get; set; }
 
         public System.Data.Entity.DbSet<Projeto.TCC.Painel.Models.Usuario> Usuarios { get; set; }
+
+        public System.Data.Entity.DbSet<Projeto.TCC.Painel.Models.PesoQuestionario> PesoQuestionarios { get; set; }
         
     }
 }
