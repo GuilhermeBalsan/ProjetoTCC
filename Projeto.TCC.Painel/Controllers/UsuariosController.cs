@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Projeto.TCC.Painel.Models;
+using System.IO;
 
 namespace Projeto.TCC.Painel.Controllers
 {
@@ -48,10 +49,17 @@ namespace Projeto.TCC.Painel.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include="Id,Nome,Email,Senha,QuestionarioId")] Usuario usuario)
+        public ActionResult Create([Bind(Include = "Id,Nome,Email,Senha,Curriculum, QuestionarioId")] Usuario usuario, HttpPostedFileBase file)
         {
-            if (ModelState.IsValid)
+           if (ModelState.IsValid && Request.Files.Count > 0 && file != null && file.ContentLength > 0)
             {
+                var arquivo = Request.Files[0];
+                
+                var fileName = Path.GetFileName(file.FileName);
+                var path = Path.Combine(Server.MapPath("~/Files/"), fileName);
+                file.SaveAs(path);
+                usuario.Curriculum = "/Files/" + fileName;
+
                 db.Usuarios.Add(usuario);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -82,10 +90,17 @@ namespace Projeto.TCC.Painel.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include="Id,Nome,Email,Senha,QuestionarioId")] Usuario usuario)
+        public ActionResult Edit([Bind(Include = "Id,Nome,Email,Senha,Curriculum,QuestionarioId")] Usuario usuario, HttpPostedFileBase file)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && Request.Files.Count > 0 && file != null && file.ContentLength > 0)
             {
+                var arquivo = Request.Files[0];
+
+                var fileName = Path.GetFileName(file.FileName);
+                var path = Path.Combine(Server.MapPath("~/Files/"), fileName);
+                file.SaveAs(path);
+                usuario.Curriculum = "/Files/" + fileName;
+
                 db.Entry(usuario).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

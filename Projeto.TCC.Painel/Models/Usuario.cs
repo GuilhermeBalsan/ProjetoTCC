@@ -18,6 +18,8 @@ namespace Projeto.TCC.Painel.Models
 
         public string Senha { get; set; }
 
+        public string Curriculum { get; set; }
+
         public int QuestionarioId { get; set; }
 
         public virtual Questionario Questionario { get; set; }

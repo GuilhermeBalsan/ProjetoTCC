@@ -1,0 +1,29 @@
+﻿
+@{
+    ViewBag.Title = "Grafico";
+    Layout = "~/Views/Shared/_LayoutAdm.cshtml";
+}
+
+
+@{
+    //var myChart = new Chart(width: 600, height: 400)
+    //   .AddTitle("Employees")
+    //   .AddSeries(chartType: "pie",
+    //      xValue: new[] { @ViewBag.xValue },
+    //      yValues: new[] { @ViewBag.yValue })
+    //   .Write();
+
+    var teste = ViewBag.xValue;
+    var teste2 = ViewBag.yValue;
+
+    var myChart = new Chart(width: 800, height: 600)
+       .AddTitle("Employees")
+       .AddSeries(chartType: "pie",
+          xValue: new[] { teste },
+          yValues: new[] { teste2 })
+       .Write();
+    
+    
+    
+}
+

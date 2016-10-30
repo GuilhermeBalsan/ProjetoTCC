@@ -13,7 +13,7 @@ namespace Projeto.TCC.Painel.Models
 
         private string sqlConn = WebConfigurationManager.ConnectionStrings["ProjetoTCCPainelContext"].ToString();
 
-        public DataTable ExecProcedure(int questionarioId)
+        public DataTable ExecProcedure(int questionarioId, string procedure)
         {
 
             using (SqlConnection conn = new SqlConnection(sqlConn))
@@ -21,15 +21,15 @@ namespace Projeto.TCC.Painel.Models
 
                 using (SqlDataAdapter da = new SqlDataAdapter())
                 {
-                    da.SelectCommand = new SqlCommand("RelatorioQuestionario", conn);
+                    da.SelectCommand = new SqlCommand(procedure, conn);
                     da.SelectCommand.CommandType = CommandType.StoredProcedure;
 
                     da.SelectCommand.Parameters.Add(new SqlParameter("@QuestionarioID", SqlDbType.Int)).Value = questionarioId;
 
                     DataSet ds = new DataSet();
-                    da.Fill(ds, "RelatorioQuestionario");
+                    da.Fill(ds, procedure);
 
-                    DataTable dt = ds.Tables["RelatorioQuestionario"];
+                    DataTable dt = ds.Tables[procedure];
 
                     return dt;
                 }

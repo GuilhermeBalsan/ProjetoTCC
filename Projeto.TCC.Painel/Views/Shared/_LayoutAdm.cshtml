@@ -11,9 +11,20 @@
     @RenderSection("scripts", required: false)
     <link rel="stylesheet" type="text/css" href="~/Content/sidebar.css">
     <link rel="stylesheet" type="text/css" href="~/Content/editor.css">
-    <link rel="stylesheet" href="~/Content/font-awesome.min.css">    
+    <link rel="stylesheet" href="~/Content/font-awesome.min.css">
+    <link rel="stylesheet" href="~/Content/chartist.min.css">    
    
     <script src="~/Scripts/editor.js"></script>
+    <script src="~/Scripts/chartist.min.js"></script>
+
+    <script src="~/Scripts/tableExport.js"></script>
+    <script src="~/Scripts/jquery.base64.js"></script>
+    <script src="~/Scripts/sprintf.js"></script>
+    <script src="~/Scripts/jspdf.js"></script>
+    <script src="~/Scripts/base64.js"></script>
+
+
+    
 </head>
 <body>            
     <div id="wrapper">
@@ -82,7 +93,7 @@
 
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-8 col-lg-offset-2">
+                    <div class="col-lg-12">
                         @RenderBody()
                     </div>
                 </div>

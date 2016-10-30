@@ -6,39 +6,95 @@
     Layout = "~/Views/Shared/_LayoutAdm.cshtml";
 }
 
-<div class="panel panel-default">
-    <div class="panel-heading">Gerenciar Resultados</div>
-    <table class="table">
-        <tr>            
+@*@Html.ActionLink("PDF", "PDF", null, new { id = "myLink" })*@
+<button id="myLink">Imprimir Relatório</button>
+@*<a href="@Url.Action("PDF", "Resultados", new { html = "Hello <b>World</b>" })" target="_blank">Link Text</a>*@
 
-            @for (int i = 3; i < Model.Columns.Count; i++ )
-            {
-                DataColumn col = Model.Columns[i];
-                <th>@col.ColumnName</th>
-            }
 
-            <th>Detalhes</th>
+<div id="relatorio">
+    <div class="panel panel-default">
+        <div class="panel-heading">Gerenciar Resultados</div>
+        <table class="table" id="tabelaRelatorio">
+            
+                <tr>
 
-        </tr>
+                    @for (int i = 3; i < Model.Columns.Count; i++)
+                    {
+                        DataColumn col = Model.Columns[i];
+                        <th>@col.ColumnName</th>
+                    }
+
+                    <th>Detalhes</th>
+
+                </tr>
+          
+
+            
+                @for (int i = 0; i < Model.Rows.Count; i++)
+                {
+                    DataRow row = Model.Rows[i];
+
+                    <tr>
+
+                        @for (int y = 3; y < Model.Columns.Count; y++)
+                        {
+                            DataColumn col = Model.Columns[y];
+
+                            <td>@row[col.ColumnName]</td>
+                        }
+
+                        <td>@Html.ActionLink("Detalhes", "Details", new { UsuarioId = row[1], QuestionarioId = row[2] })</td>
+
+                    </tr>
+                }
+           
+
+        </table>
+    </div>
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="row">
+                    <div class="col-lg-6 col-lg-offset-3">
+                        <img class="img-responsive" src='@Url.Action("Grafico", "Resultados", new { questionarioId = ViewBag.QuestionarioId })' />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="teste"></div>
+
+<script type="text/javascript">
+
+
+    $("#myLink").click(function (e) {
+
        
 
-        @for (int i = 0; i < Model.Rows.Count; i++)
-        {
-            DataRow row = Model.Rows[i];
-            
-            <tr>
+        
+    
+       
+        
+        
 
-                @for (int y = 3; y < Model.Columns.Count; y++)
-                {
-                    DataColumn col = Model.Columns[y];
-                    
-                    <td>@row[col.ColumnName]</td>
-                }
+        var printContents = $("#relatorio").html();
 
-                <td>@Html.ActionLink("Detalhes", "Details", new { UsuarioId = row[1], QuestionarioId = row[2] })</td>
-                
-            </tr>
-        }       
+        
+        var originalContents = document.body.innerHTML;
 
-    </table>
-</div>
+        document.body.innerHTML = printContents;
+
+        window.print();
+
+        document.body.innerHTML = originalContents;
+
+        location.reload();
+        
+    });
+
+
+</script>
