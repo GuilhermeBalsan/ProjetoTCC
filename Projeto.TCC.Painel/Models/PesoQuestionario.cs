@@ -17,9 +17,9 @@ namespace Projeto.TCC.Painel.Models
 
         public virtual Questionario Questionarios { get; set; }
 
-        public int AtributoId { get; set; }
+        public int PerfilId { get; set; }
 
-        public virtual Atributo Atributos { get; set; }
+        public virtual Perfil Perfils { get; set; }
 
         public int Peso { get; set; }
 

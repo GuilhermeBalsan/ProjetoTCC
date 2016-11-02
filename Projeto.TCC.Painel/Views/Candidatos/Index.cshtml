@@ -1,29 +1,28 @@
-﻿@model IEnumerable<Projeto.TCC.Painel.Models.PesoQuestionario>
+﻿@model IEnumerable<Projeto.TCC.Painel.Models.Candidato>
 
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_LayoutAdm.cshtml";
 }
-
-
-
 <p>
-    @Html.ActionLink("Novo Peso", "Create", new { questionarioId = ViewBag.QuestionarioId }, new { @class = "btn btn-default" })
+    @Html.ActionLink("Novo Candidato", "Create", null, new { @class = "btn btn-default" })
 </p>
-
 <div class="panel panel-default">
-    <div class="panel-heading">Gerenciar Pesos: @ViewBag.Questionario </div>
+    <div class="panel-heading">Gerenciar Candidatos</div>
     <table class="table table-hover">
         <thead>
             <tr>
                 <th>
-                    @Html.DisplayNameFor(model => model.Perfils.Titulo)
+                    @Html.DisplayNameFor(model => model.Questionario.Nome)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Questionarios.Nome)
+                    @Html.DisplayNameFor(model => model.Nome)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Peso)
+                    @Html.DisplayNameFor(model => model.Email)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Senha)
                 </th>
                 <th></th>
             </tr>
@@ -35,13 +34,16 @@
             {
                 <tr>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Perfils.Titulo)
+                        @Html.DisplayFor(modelItem => item.Questionario.Nome)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Questionarios.Nome)
+                        @Html.DisplayFor(modelItem => item.Nome)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Peso)
+                        @Html.DisplayFor(modelItem => item.Email)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Senha)
                     </td>
                     <td>
                         @Html.ActionLink("Editar", "Edit", new { id = item.Id }) |
@@ -50,7 +52,8 @@
                     </td>
                 </tr>
             }
+
         </tbody>
 
-    </table>
+</table>
 </div>

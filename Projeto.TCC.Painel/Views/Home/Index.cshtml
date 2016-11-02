@@ -1,94 +1,113 @@
-﻿@model Projeto.TCC.Painel.Models.Usuario
+﻿@model Projeto.TCC.Painel.Models.Candidato
 @{
     Layout = null;
 }
 
 <!DOCTYPE html>
+<html lang="en">
 
-<html>
 <head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Index</title>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Acesso Administrativo - My ASP.NET Application</title>
+
+    <!-- CSS -->
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")  
+    @Scripts.Render("~/bundles/bootstrap")
 
-    <style>       
+    <link rel="stylesheet" type="text/css" href="~/Content/sidebar.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/Login.css">
+    <link rel="stylesheet" href="~/Content/font-awesome.min.css">
 
-        * {
-            -webkit-box-sizing: border-box;
-            -moz-box-sizing: border-box;
-            box-sizing: border-box;
-            outline: none;
-        }
+    <script src="~/Scripts/jquery.backstretch.min.js"></script>
 
-        body {
-            background: url(/img/bg_home.jpg) no-repeat center center fixed;
-            -webkit-background-size: cover;
-            -moz-background-size: cover;
-            -o-background-size: cover;
-            background-size: cover;
-        }
-
-        .login-form {
-            font: 16px/2em Lato, serif;
-            margin: 100px auto;
-            max-width: 400px;
-        }
-
-        .form {
-            color: #5d5d5d;
-            background: #f2f2f2;
-            padding: 26px;
-            border-radius: 10px;
-            -moz-border-radius: 10px;
-            -webkit-border-radius: 10px;
-        }
-
-            .form img {
-                display: block;
-                margin: 0 auto;
-                margin-bottom: 35px;
-            }
-
-            .form input,
-            .form button {
-                font-size: 18px;
-                margin: 16px 0;
-            }
-
-            .form > div {
-                text-align: center;
-            }
-
-        .form-links {
-            text-align: center;
-            margin-top: 1em;
-            margin-bottom: 50px;
-        }
-
-            .form-links a {
-                color: #fff;
-            }
-    </style>
-    
 </head>
+
 <body>
-    <section class="container">
-        <section class="login-form">
-            <form class="form" role="form" action="@Url.Action("Sessao", "Home")" method="post">
-                <img src="assets/images/logo.png" class="img-responsive" alt="" />
 
-                <p style="font-weight: bold; color: #de615e">@ViewBag.Mensagem</p>
+    <!-- Top content -->
+    <div class="top-content">
 
-                <input type="text" name="Nome" placeholder="Nome" required class="form-control input-lg" />                
-                <input type="password" name="Senha" placeholder="Senha" required class="form-control input-lg" />              
+        <div class="inner-bg">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-8 col-sm-offset-2 text">
+                        <h1><strong>Acesso Administrativo</strong></h1>
 
-                <button type="submit" name="go" class="btn btn-lg btn-primary btn-block">Iniciar</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6 col-sm-offset-3 form-box">
+                        <div class="form-top">
+                            <div class="form-top-left">
+                                <h3>Faça login no painel</h3>
+                                <p>Insira seu Candidato e senha para continuar:</p>
+                                <p style="font-weight: bold; color: #de615e">@ViewBag.Mensagem</p>
+                            </div>
+                            <div class="form-top-right">
+                                <i class="fa fa-lock"></i>
+                            </div>
+                        </div>
+                        <div class="form-bottom">
+                            <form role="form" action="@Url.Action("Sessao", "Home")" method="post" class="login-form">
+                                <div class="form-group">
 
-            </form>            
-        </section>
-    </section>
+                                    @Html.LabelFor(model => model.Nome, new { @class = "sr-only" })
+                                    @Html.TextBoxFor(model => model.Nome, new { @class = "form-username form-control", placeholder = "Nome" })
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Senha, new { @class = "sr-only" })
+                                    @Html.PasswordFor(model => model.Senha, new { @class = "form-username form-control", placeholder = "Senha" })
+
+                                </div>
+                                <button type="submit" class="btn">Acessar</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
 </body>
+
 </html>
+
+<script>
+    $(document).ready(function () {
+
+        /*
+            Fullscreen background
+        */
+        $.backstretch("/img/bg.jpg");
+
+        /*
+            Form validation
+        */
+        $('.login-form input[type="text"], .login-form input[type="password"], .login-form textarea').on('focus', function () {
+            $(this).removeClass('input-error');
+        });
+
+        $('.login-form').on('submit', function (e) {
+
+            $(this).find('input[type="text"], input[type="password"], textarea').each(function () {
+                if ($(this).val() == "") {
+                    e.preventDefault();
+                    $(this).addClass('input-error');
+                }
+                else {
+                    $(this).removeClass('input-error');
+                }
+            });
+
+        });
+
+
+    });
+</script>

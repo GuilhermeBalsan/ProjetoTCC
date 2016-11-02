@@ -44,7 +44,7 @@
                                             {
                                                 <div class="radio" style="border-bottom: 1px solid #e4e4e4; padding: 12px 0; margin-left: 12px; line-height: 1.2em; font-weight: 700 !important;">
                                                     <label>
-                                                        <input type="radio" name="@Html.DisplayFor(modelItem => resposta.Pergunta.Id)" id="@Html.DisplayFor(modelItem => resposta.Id)" value="@Html.DisplayFor(modelItem => resposta.AtributoId)" required>
+                                                        <input type="radio" name="@Html.DisplayFor(modelItem => resposta.Pergunta.Id)" id="@Html.DisplayFor(modelItem => resposta.Id)" value="@Html.DisplayFor(modelItem => resposta.PerfilId)" required>
                                                         @Html.DisplayFor(modelItem => resposta.Titulo)
                                                     </label>
                                                 </div>
@@ -128,7 +128,7 @@
             dataType: 'json',
             data: JSON.stringify({
                 perguntaId: nome,
-                atributoId: valor
+                PerfilId: valor
             }),
             async: false
         });

@@ -11,107 +11,107 @@ using Projeto.TCC.Painel.Models;
 namespace Projeto.TCC.Painel.Controllers
 {
     [Authorize]
-    public class AtributosController : Controller
+    public class PerfilsController : Controller
     {
         private ProjetoTCCPainelContext db = new ProjetoTCCPainelContext();
 
-        // GET: /Atributos/
+        // GET: /Perfils/
         public ActionResult Index()
         {
-            return View(db.Atributos.ToList());
+            return View(db.Perfils.ToList());
         }
 
-        // GET: /Atributos/Details/5
+        // GET: /Perfils/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Atributo atributo = db.Atributos.Find(id);
-            if (atributo == null)
+            Perfil Perfil = db.Perfils.Find(id);
+            if (Perfil == null)
             {
                 return HttpNotFound();
             }
-            return View(atributo);
+            return View(Perfil);
         }
 
-        // GET: /Atributos/Create
+        // GET: /Perfils/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: /Atributos/Create
+        // POST: /Perfils/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include="Id,Titulo")] Atributo atributo)
+        public ActionResult Create([Bind(Include="Id,Titulo")] Perfil Perfil)
         {
             if (ModelState.IsValid)
             {
-                db.Atributos.Add(atributo);
+                db.Perfils.Add(Perfil);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(atributo);
+            return View(Perfil);
         }
 
-        // GET: /Atributos/Edit/5
+        // GET: /Perfils/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Atributo atributo = db.Atributos.Find(id);
-            if (atributo == null)
+            Perfil Perfil = db.Perfils.Find(id);
+            if (Perfil == null)
             {
                 return HttpNotFound();
             }
-            return View(atributo);
+            return View(Perfil);
         }
 
-        // POST: /Atributos/Edit/5
+        // POST: /Perfils/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include="Id,Titulo")] Atributo atributo)
+        public ActionResult Edit([Bind(Include="Id,Titulo")] Perfil Perfil)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(atributo).State = EntityState.Modified;
+                db.Entry(Perfil).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(atributo);
+            return View(Perfil);
         }
 
-        // GET: /Atributos/Delete/5
+        // GET: /Perfils/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Atributo atributo = db.Atributos.Find(id);
-            if (atributo == null)
+            Perfil Perfil = db.Perfils.Find(id);
+            if (Perfil == null)
             {
                 return HttpNotFound();
             }
-            return View(atributo);
+            return View(Perfil);
         }
 
-        // POST: /Atributos/Delete/5
+        // POST: /Perfils/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Atributo atributo = db.Atributos.Find(id);
-            db.Atributos.Remove(atributo);
+            Perfil Perfil = db.Perfils.Find(id);
+            db.Perfils.Remove(Perfil);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

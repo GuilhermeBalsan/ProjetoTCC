@@ -12,7 +12,7 @@ namespace Projeto.TCC.Painel.Controllers
     internal class RespostasFormulario
     {
         public int PerguntaId { get; set; }
-        public int AtributoId { get; set; }
+        public int PerfilId { get; set; }
     }
 
     public class HomeController : Controller
@@ -26,7 +26,7 @@ namespace Projeto.TCC.Painel.Controllers
         {
             if (erro)
             {
-                @ViewBag.Mensagem = "Usuário ou Senha inválidos";
+                @ViewBag.Mensagem = "Candidato ou Senha inválidos";
                 erro = false;
             }
 
@@ -36,15 +36,15 @@ namespace Projeto.TCC.Painel.Controllers
        
         public ActionResult Sessao(string Nome, string Senha)
         {
-            Usuario usuario = db.Usuarios.Where(w => w.Nome == Nome && w.Senha == Senha).FirstOrDefault();
+            Candidato Candidato = db.Candidatos.Where(w => w.Nome == Nome && w.Senha == Senha).FirstOrDefault();
 
-            if(usuario != null)
+            if(Candidato != null)
             {
-                Session["UsuarioId"] = usuario.Id;
-                Session["Nome"] = usuario.Nome.ToString();
-                Session["Email"] = usuario.Email.ToString();
-                Session["QuestionarioId"] = Convert.ToInt32(usuario.QuestionarioId);
-                Session["Questionario"] = usuario.Questionario.Nome.ToString();                
+                Session["CandidatoId"] = Candidato.Id;
+                Session["Nome"] = Candidato.Nome.ToString();
+                Session["Email"] = Candidato.Email.ToString();
+                Session["QuestionarioId"] = Convert.ToInt32(Candidato.QuestionarioId);
+                Session["Questionario"] = Candidato.Questionario.Nome.ToString();                
 
                 return RedirectToAction("Perguntas");
             }
@@ -65,14 +65,14 @@ namespace Projeto.TCC.Painel.Controllers
             return View(questionario);
         }        
 
-        public void Respostas(int perguntaId, int atributoId)
+        public void Respostas(int perguntaId, int PerfilId)
         {
             var resposta = listRespostas.Where(w => w.PerguntaId == perguntaId).FirstOrDefault();
 
             if (resposta == null)
             {
                 RespostasFormulario respostaFormulario = new RespostasFormulario();
-                respostaFormulario.AtributoId = atributoId;
+                respostaFormulario.PerfilId = PerfilId;
                 respostaFormulario.PerguntaId = perguntaId;
 
                 listRespostas.Add(respostaFormulario);
@@ -80,7 +80,7 @@ namespace Projeto.TCC.Painel.Controllers
             else
             {
                 resposta.PerguntaId = perguntaId;
-                resposta.AtributoId = atributoId;
+                resposta.PerfilId = PerfilId;
             }           
         }
 
@@ -88,25 +88,25 @@ namespace Projeto.TCC.Painel.Controllers
         {
             InserirResultado();
 
-            int usuarioId = Convert.ToInt32(Session["UsuarioId"]);
+            int CandidatoId = Convert.ToInt32(Session["CandidatoId"]);
 
-            var resultados = db.Resultados.Include(r => r.Usuario).Include(r => r.DetalhesResultado).Where(w => w.UsuarioId == usuarioId).FirstOrDefault();            
+            var resultados = db.Resultados.Include(r => r.Candidato).Include(r => r.DetalhesResultado).Where(w => w.CandidatoId == CandidatoId).FirstOrDefault();            
 
             List<Mensagem> listMensagem = new List<Mensagem>();
 
-            int quantidadePerguntas = resultados.Usuario.Questionario.Perguntas.Count();
+            int quantidadePerguntas = resultados.Candidato.Questionario.Perguntas.Count();
 
             var relatorios = db.Relatorios.ToList();
 
             foreach(var resultado in resultados.DetalhesResultado)
             {
                 double porcentagem = (double) resultado.Quantidade / quantidadePerguntas;
-                int atributoId = Convert.ToInt32(resultado.Atributo.Id);
+                int PerfilId = Convert.ToInt32(resultado.Perfil.Id);
                 
                 Mensagem mensagem = new Mensagem();
                 mensagem.Porcentagem = ((Math.Round(porcentagem, 2))*100);
-                mensagem.Descricao = WebUtility.HtmlDecode(relatorios.Where(w => w.AtributoId == atributoId).Select(s => s.Mensagem).FirstOrDefault().ToString());
-                mensagem.Atributo = resultado.Atributo.Titulo.ToString();
+                mensagem.Descricao = WebUtility.HtmlDecode(relatorios.Where(w => w.PerfilId == PerfilId).Select(s => s.Mensagem).FirstOrDefault().ToString());
+                mensagem.Perfil = resultado.Perfil.Titulo.ToString();
 
                 listMensagem.Add(mensagem);
             }
@@ -117,22 +117,22 @@ namespace Projeto.TCC.Painel.Controllers
 
         public void InserirResultado()
         {
-            var resultadoAtributo = listRespostas.GroupBy(g => new { g.AtributoId })
-                                         .Select(g => new { g.Key.AtributoId, Count = g.Count() });
+            var resultadoPerfil = listRespostas.GroupBy(g => new { g.PerfilId })
+                                         .Select(g => new { g.Key.PerfilId, Count = g.Count() });
 
             List<DetalheResultado> detalhesResultado = new List<DetalheResultado>();
 
-            foreach (var resultados in resultadoAtributo)
+            foreach (var resultados in resultadoPerfil)
             {
                 DetalheResultado detalheResultado = new DetalheResultado();
-                detalheResultado.Atributo = db.Atributos.Find(resultados.AtributoId);
+                detalheResultado.Perfil = db.Perfils.Find(resultados.PerfilId);
                 detalheResultado.Quantidade = resultados.Count;
                 detalhesResultado.Add(detalheResultado);
             }
 
             Resultado resultado = new Resultado()
             {
-                UsuarioId = Convert.ToInt32(Session["UsuarioId"]),
+                CandidatoId = Convert.ToInt32(Session["CandidatoId"]),
                 QuestionarioId = Convert.ToInt32(Session["QuestionarioId"]),
                 DetalhesResultado = detalhesResultado
 

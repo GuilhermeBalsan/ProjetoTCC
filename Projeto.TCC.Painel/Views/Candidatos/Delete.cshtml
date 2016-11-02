@@ -1,4 +1,4 @@
-﻿@model Projeto.TCC.Painel.Models.Usuario
+﻿@model Projeto.TCC.Painel.Models.Candidato
 
 @{
     ViewBag.Title = "Deletar";
@@ -9,7 +9,7 @@
 
 <h3>Você tem certeza que quer deletar?</h3>
 <div>
-    <h4>Usuario</h4>
+    <h4>Candidato</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -51,7 +51,7 @@
 
         <div class="form-actions no-color">
             <input type="submit" value="Deletar" class="btn btn-default" /> |
-            @Html.ActionLink("Voltar para Usuários", "Index")
+            @Html.ActionLink("Voltar para Candidatos", "Index", null, new { @class = "btn btn-default" })
         </div>
     }
 </div>

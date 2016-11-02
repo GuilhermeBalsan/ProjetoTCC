@@ -6,16 +6,16 @@
     Layout = "~/Views/Shared/_LayoutAdm.cshtml";
 }
 
-@*@Html.ActionLink("PDF", "PDF", null, new { id = "myLink" })*@
-<button id="myLink">Imprimir Relatório</button>
-@*<a href="@Url.Action("PDF", "Resultados", new { html = "Hello <b>World</b>" })" target="_blank">Link Text</a>*@
 
+<button class="btn btn-default" id="myLink" style="margin-bottom: 20px">Imprimir Relatório</button>
+
+<br />
 
 <div id="relatorio">
     <div class="panel panel-default">
         <div class="panel-heading">Gerenciar Resultados</div>
-        <table class="table" id="tabelaRelatorio">
-            
+        <table class="table table-hover" id="tabelaRelatorio">
+            <thead>
                 <tr>
 
                     @for (int i = 3; i < Model.Columns.Count; i++)
@@ -27,9 +27,10 @@
                     <th>Detalhes</th>
 
                 </tr>
-          
 
-            
+            </thead>
+            <tbody>
+
                 @for (int i = 0; i < Model.Rows.Count; i++)
                 {
                     DataRow row = Model.Rows[i];
@@ -43,11 +44,11 @@
                             <td>@row[col.ColumnName]</td>
                         }
 
-                        <td>@Html.ActionLink("Detalhes", "Details", new { UsuarioId = row[1], QuestionarioId = row[2] })</td>
+                        <td>@Html.ActionLink("Detalhes", "Details", new { CandidatoId = row[1], QuestionarioId = row[2] })</td>
 
                     </tr>
                 }
-           
+            </tbody>
 
         </table>
     </div>

@@ -76,6 +76,11 @@ input[type="checkbox"].input-validation-error {
     text-align: center;
 }
 
+.table thead > tr > th
+{
+    text-align: center !important;
+}
+
 .panel > .panel-heading
 {
     font-weight: bold;

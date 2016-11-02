@@ -26,7 +26,7 @@ namespace Projeto.TCC.Painel.Models
 
         public System.Data.Entity.DbSet<Projeto.TCC.Painel.Models.Resposta> Respostas { get; set; }
 
-        public System.Data.Entity.DbSet<Projeto.TCC.Painel.Models.Atributo> Atributos { get; set; }
+        public System.Data.Entity.DbSet<Projeto.TCC.Painel.Models.Perfil> Perfils { get; set; }
 
         public System.Data.Entity.DbSet<Projeto.TCC.Painel.Models.Relatorio> Relatorios { get; set; }
 
@@ -34,7 +34,7 @@ namespace Projeto.TCC.Painel.Models
 
         public System.Data.Entity.DbSet<Projeto.TCC.Painel.Models.Resultado> Resultados { get; set; }
 
-        public System.Data.Entity.DbSet<Projeto.TCC.Painel.Models.Usuario> Usuarios { get; set; }
+        public System.Data.Entity.DbSet<Projeto.TCC.Painel.Models.Candidato> Candidatos { get; set; }
 
         public System.Data.Entity.DbSet<Projeto.TCC.Painel.Models.PesoQuestionario> PesoQuestionarios { get; set; }
         

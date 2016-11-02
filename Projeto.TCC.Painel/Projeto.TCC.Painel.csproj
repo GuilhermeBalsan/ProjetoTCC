@@ -46,12 +46,6 @@
     <Reference Include="EntityFramework.SqlServer">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
-    <Reference Include="itextsharp">
-      <HintPath>..\..\Materiais\itextsharp.dll</HintPath>
-    </Reference>
-    <Reference Include="itextsharp.pdfa">
-      <HintPath>..\..\Materiais\itextsharp.pdfa.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -128,7 +122,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdministradoresController.cs" />
-    <Compile Include="Controllers\AtributosController.cs" />
+    <Compile Include="Controllers\PerfisController.cs" />
     <Compile Include="Controllers\Document.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
@@ -138,14 +132,14 @@
     <Compile Include="Controllers\RelatoriosController.cs" />
     <Compile Include="Controllers\RespostasController.cs" />
     <Compile Include="Controllers\ResultadosController.cs" />
-    <Compile Include="Controllers\UsuariosController.cs" />
+    <Compile Include="Controllers\CandidatosController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Administrador.cs" />
     <Compile Include="Models\AdoNet.cs" />
-    <Compile Include="Models\Atributo.cs" />
+    <Compile Include="Models\Perfil.cs" />
     <Compile Include="Models\DetalheResultado.cs" />
     <Compile Include="Models\Mensagem.cs" />
     <Compile Include="Models\Pergunta.cs" />
@@ -155,7 +149,7 @@
     <Compile Include="Models\Relatorio.cs" />
     <Compile Include="Models\Resposta.cs" />
     <Compile Include="Models\Resultado.cs" />
-    <Compile Include="Models\Usuario.cs" />
+    <Compile Include="Models\Candidato.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -227,11 +221,11 @@
     <Content Include="Views\Respostas\Details.cshtml" />
     <Content Include="Views\Respostas\Edit.cshtml" />
     <Content Include="Views\Respostas\Index.cshtml" />
-    <Content Include="Views\Atributos\Create.cshtml" />
-    <Content Include="Views\Atributos\Delete.cshtml" />
-    <Content Include="Views\Atributos\Details.cshtml" />
-    <Content Include="Views\Atributos\Edit.cshtml" />
-    <Content Include="Views\Atributos\Index.cshtml" />
+    <Content Include="Views\Perfils\Create.cshtml" />
+    <Content Include="Views\Perfils\Delete.cshtml" />
+    <Content Include="Views\Perfils\Details.cshtml" />
+    <Content Include="Views\Perfils\Edit.cshtml" />
+    <Content Include="Views\Perfils\Index.cshtml" />
     <Content Include="Views\Relatorios\Create.cshtml" />
     <Content Include="Views\Relatorios\Delete.cshtml" />
     <Content Include="Views\Relatorios\Details.cshtml" />
@@ -243,7 +237,7 @@
     <Content Include="Views\Administradores\Edit.cshtml" />
     <Content Include="Views\Administradores\Index.cshtml" />
     <Content Include="Views\Administradores\_ViewStart.cshtml" />
-    <Content Include="Views\Atributos\_ViewStart.cshtml" />
+    <Content Include="Views\Perfils\_ViewStart.cshtml" />
     <Content Include="Views\Perguntas\_ViewStart.cshtml" />
     <Content Include="Views\Questionarios\_ViewStart.cshtml" />
     <Content Include="Views\Relatorios\_ViewStart.cshtml" />
@@ -253,11 +247,11 @@
     <Content Include="Views\Home\Resultado.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Usuarios\Create.cshtml" />
-    <Content Include="Views\Usuarios\Delete.cshtml" />
-    <Content Include="Views\Usuarios\Details.cshtml" />
-    <Content Include="Views\Usuarios\Edit.cshtml" />
-    <Content Include="Views\Usuarios\Index.cshtml" />
+    <Content Include="Views\Candidatos\Create.cshtml" />
+    <Content Include="Views\Candidatos\Delete.cshtml" />
+    <Content Include="Views\Candidatos\Details.cshtml" />
+    <Content Include="Views\Candidatos\Edit.cshtml" />
+    <Content Include="Views\Candidatos\Index.cshtml" />
     <Content Include="Views\Resultados\Details.cshtml" />
     <Content Include="Views\Resultados\Index.cshtml" />
     <Content Include="Views\PesosQuestionarios\Create.cshtml" />
@@ -266,7 +260,6 @@
     <Content Include="Views\PesosQuestionarios\Edit.cshtml" />
     <Content Include="Views\PesosQuestionarios\Index.cshtml" />
     <Content Include="Views\Resultados\Candidatos.cshtml" />
-    <Content Include="Views\Resultados\Grafico.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

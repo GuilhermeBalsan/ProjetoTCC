@@ -18,7 +18,7 @@ namespace Projeto.TCC.Painel.Controllers
         {
             if (erro)
             {
-                @ViewBag.Mensagem = "Usuário ou Senha inválidos";
+                @ViewBag.Mensagem = "Candidato ou Senha inválidos";
                 erro = false;
             }
 

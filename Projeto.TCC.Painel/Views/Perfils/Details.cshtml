@@ -1,4 +1,4 @@
-﻿@model Projeto.TCC.Painel.Models.Atributo
+﻿@model Projeto.TCC.Painel.Models.Perfil
 
 @{
     ViewBag.Title = "Detalhes";
@@ -7,7 +7,7 @@
 <h2>Details</h2>
 
 <div>
-    <h4>Atributo</h4>
+    <h4>Perfil</h4>
 	<hr />
     <dl class="dl-horizontal">
         <dt>
@@ -21,6 +21,6 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Editar", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Voltar para Atributos", "Index")
+    @Html.ActionLink("Editar", "Edit", new { id = Model.Id }, new { @class = "btn btn-default" }) |
+    @Html.ActionLink("Voltar para Perfils", "Index", null, new { @class = "btn btn-default" })
 </p>

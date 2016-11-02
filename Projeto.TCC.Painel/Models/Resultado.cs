@@ -12,9 +12,9 @@ namespace Projeto.TCC.Painel.Models
     {
         public int Id { get; set; }
 
-        public int UsuarioId { get; set; }
+        public int CandidatoId { get; set; }
 
-        public virtual Usuario Usuario { get; set; }
+        public virtual Candidato Candidato { get; set; }
 
         public int QuestionarioId { get; set; }
         

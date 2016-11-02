@@ -7,8 +7,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Projeto.TCC.Painel.Models
 {
-    [Table("Usuarios")]
-    public class Usuario
+    [Table("Candidatos")]
+    public class Candidato
     {
         public int Id { get; set; }
         

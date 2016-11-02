@@ -7,26 +7,32 @@
 
 <div class="panel panel-default">
     <div class="panel-heading">Gerenciar Resultados</div>
-    <table class="table">
-        <tr>
-            
-            <th>
-                @Html.DisplayNameFor(model => model.Nome)
-            </th>
-            <th></th>
-        </tr>
+    <table class="table table-hover">
+        <thead>
+            <tr>
 
-        @foreach (var item in Model)
-        {
-            <tr>                
-                <td>
-                    @Html.DisplayFor(modelItem => item.Nome)
-                </td>
-                <td>
-                    @Html.ActionLink("Candidatos", "Candidatos", new { id = item.Id })
-                </td>
+                <th>
+                    @Html.DisplayNameFor(model => model.Nome)
+                </th>
+                <th>
+                    Detalhes
+                </th>
             </tr>
-        }
+        </thead>
+        <tbody>
 
-    </table>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Nome)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Candidatos", "Candidatos", new { id = item.Id })
+                    </td>
+                </tr>
+            }
+        </tbody>
+
+</table>
 </div>

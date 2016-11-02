@@ -1,4 +1,4 @@
-﻿@model Projeto.TCC.Painel.Models.Usuario
+﻿@model Projeto.TCC.Painel.Models.Candidato
 
 @{
     ViewBag.Title = "Detalhes";
@@ -8,7 +8,7 @@
 <h2>Detalhes</h2>
 
 <div>
-    <h4>Usuario</h4>
+    <h4>Candidato</h4>
 	<hr />
     <dl class="dl-horizontal">
         <dt>
@@ -55,6 +55,6 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Editar", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Voltar para Usuários", "Index")
+    @Html.ActionLink("Editar", "Edit", new { id = Model.Id }, new { @class = "btn btn-default" }) |
+    @Html.ActionLink("Voltar para Candidatos", "Index", null, new { @class = "btn btn-default" })
 </p>

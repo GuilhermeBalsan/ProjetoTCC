@@ -46,7 +46,7 @@
                         <div class="form-top">
                             <div class="form-top-left">
                                 <h3>Faça login no painel</h3>
-                                <p>Insira seu usuário e senha para continuar:</p>
+                                <p>Insira seu Candidato e senha para continuar:</p>
                                 <p style="font-weight: bold; color: #de615e">@ViewBag.Mensagem</p>
                             </div>
                             <div class="form-top-right">
@@ -58,7 +58,7 @@
                                 <div class="form-group">
 
                                     @Html.LabelFor(model => model.Nome, new { @class = "sr-only" })
-                                    @Html.TextBoxFor(model => model.Nome, new { @class = "form-username form-control", placeholder = "Usuário" })                                    
+                                    @Html.TextBoxFor(model => model.Nome, new { @class = "form-username form-control", placeholder = "Candidato" })                                    
                                 </div>
                                 <div class="form-group">                                   
                                     @Html.LabelFor(model => model.Senha, new { @class = "sr-only" })

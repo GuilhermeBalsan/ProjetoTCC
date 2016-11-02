@@ -6,17 +6,17 @@
 
 <h2>Delete</h2>
 
-<h3>Are you sure you want to delete this?</h3>
+<h3>Você tem certeza que quer deletar?</h3>
 <div>
     <h4>Relatorio</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Atributo.Titulo)
+            @Html.DisplayNameFor(model => model.Perfil.Titulo)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Atributo.Titulo)
+            @Html.DisplayFor(model => model.Perfil.Titulo)
         </dd>
 
         <dt>
@@ -31,8 +31,8 @@
             @Html.DisplayNameFor(model => model.Mensagem)
         </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Mensagem)
+        <dd id="Descricao">
+
         </dd>
 
     </dl>
@@ -42,7 +42,19 @@
 
         <div class="form-actions no-color">
             <input type="submit" value="Deletar" class="btn btn-default" /> |
-            @Html.ActionLink("Voltar para Relatórios", "Index", new { atributoId = Model.AtributoId })
+            @Html.ActionLink("Voltar para Relatórios", "Index", new { PerfilId = Model.PerfilId }, new { @class = "btn btn-default" })
         </div>
     }
 </div>
+
+<script>
+    $(document).ready(function () {
+        var valor = "@ViewBag.DescricaoHTML";
+        $("#Descricao").html(convert(valor));
+    });
+
+    var convert = function (convert) {
+        return $("<span />", { html: convert }).text();
+    }
+
+</script>

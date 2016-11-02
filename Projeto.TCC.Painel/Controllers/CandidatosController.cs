@@ -11,45 +11,45 @@ using System.IO;
 
 namespace Projeto.TCC.Painel.Controllers
 {
-    public class UsuariosController : Controller
+    public class CandidatosController : Controller
     {
         private ProjetoTCCPainelContext db = new ProjetoTCCPainelContext();
 
-        // GET: /Usuarios/
+        // GET: /Candidatos/
         public ActionResult Index()
         {
-            var usuarios = db.Usuarios.Include(u => u.Questionario);
-            return View(usuarios.ToList());
+            var Candidatos = db.Candidatos.Include(u => u.Questionario);
+            return View(Candidatos.ToList());
         }
 
-        // GET: /Usuarios/Details/5
+        // GET: /Candidatos/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Usuario usuario = db.Usuarios.Find(id);
-            if (usuario == null)
+            Candidato Candidato = db.Candidatos.Find(id);
+            if (Candidato == null)
             {
                 return HttpNotFound();
             }
-            return View(usuario);
+            return View(Candidato);
         }
 
-        // GET: /Usuarios/Create
+        // GET: /Candidatos/Create
         public ActionResult Create()
         {
             ViewBag.QuestionarioId = new SelectList(db.Questionarios, "Id", "Nome");
             return View();
         }
 
-        // POST: /Usuarios/Create
+        // POST: /Candidatos/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Nome,Email,Senha,Curriculum, QuestionarioId")] Usuario usuario, HttpPostedFileBase file)
+        public ActionResult Create([Bind(Include = "Id,Nome,Email,Senha,Curriculum, QuestionarioId")] Candidato Candidato, HttpPostedFileBase file)
         {
            if (ModelState.IsValid && Request.Files.Count > 0 && file != null && file.ContentLength > 0)
             {
@@ -58,39 +58,39 @@ namespace Projeto.TCC.Painel.Controllers
                 var fileName = Path.GetFileName(file.FileName);
                 var path = Path.Combine(Server.MapPath("~/Files/"), fileName);
                 file.SaveAs(path);
-                usuario.Curriculum = "/Files/" + fileName;
+                Candidato.Curriculum = "/Files/" + fileName;
 
-                db.Usuarios.Add(usuario);
+                db.Candidatos.Add(Candidato);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.QuestionarioId = new SelectList(db.Questionarios, "Id", "Nome", usuario.QuestionarioId);
-            return View(usuario);
+            ViewBag.QuestionarioId = new SelectList(db.Questionarios, "Id", "Nome", Candidato.QuestionarioId);
+            return View(Candidato);
         }
 
-        // GET: /Usuarios/Edit/5
+        // GET: /Candidatos/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Usuario usuario = db.Usuarios.Find(id);
-            if (usuario == null)
+            Candidato Candidato = db.Candidatos.Find(id);
+            if (Candidato == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.QuestionarioId = new SelectList(db.Questionarios, "Id", "Nome", usuario.QuestionarioId);
-            return View(usuario);
+            ViewBag.QuestionarioId = new SelectList(db.Questionarios, "Id", "Nome", Candidato.QuestionarioId);
+            return View(Candidato);
         }
 
-        // POST: /Usuarios/Edit/5
+        // POST: /Candidatos/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Nome,Email,Senha,Curriculum,QuestionarioId")] Usuario usuario, HttpPostedFileBase file)
+        public ActionResult Edit([Bind(Include = "Id,Nome,Email,Senha,Curriculum,QuestionarioId")] Candidato Candidato, HttpPostedFileBase file)
         {
             if (ModelState.IsValid && Request.Files.Count > 0 && file != null && file.ContentLength > 0)
             {
@@ -99,38 +99,38 @@ namespace Projeto.TCC.Painel.Controllers
                 var fileName = Path.GetFileName(file.FileName);
                 var path = Path.Combine(Server.MapPath("~/Files/"), fileName);
                 file.SaveAs(path);
-                usuario.Curriculum = "/Files/" + fileName;
+                Candidato.Curriculum = "/Files/" + fileName;
 
-                db.Entry(usuario).State = EntityState.Modified;
+                db.Entry(Candidato).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.QuestionarioId = new SelectList(db.Questionarios, "Id", "Nome", usuario.QuestionarioId);
-            return View(usuario);
+            ViewBag.QuestionarioId = new SelectList(db.Questionarios, "Id", "Nome", Candidato.QuestionarioId);
+            return View(Candidato);
         }
 
-        // GET: /Usuarios/Delete/5
+        // GET: /Candidatos/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Usuario usuario = db.Usuarios.Find(id);
-            if (usuario == null)
+            Candidato Candidato = db.Candidatos.Find(id);
+            if (Candidato == null)
             {
                 return HttpNotFound();
             }
-            return View(usuario);
+            return View(Candidato);
         }
 
-        // POST: /Usuarios/Delete/5
+        // POST: /Candidatos/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Usuario usuario = db.Usuarios.Find(id);
-            db.Usuarios.Remove(usuario);
+            Candidato Candidato = db.Candidatos.Find(id);
+            db.Candidatos.Remove(Candidato);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

@@ -8,7 +8,7 @@ namespace Projeto.TCC.Painel.Models
     public class Mensagem
     {
 
-        public string Atributo { get; set; }
+        public string Perfil { get; set; }
 
         public double Porcentagem { get; set; }
 

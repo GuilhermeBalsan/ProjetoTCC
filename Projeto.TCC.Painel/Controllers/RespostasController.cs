@@ -24,7 +24,7 @@ namespace Projeto.TCC.Painel.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             
-            var respostas = db.Respostas.Include(r => r.Atributo).Include(r => r.Pergunta).Where(w => w.PerguntaId == perguntaId).ToList();               
+            var respostas = db.Respostas.Include(r => r.Perfil).Include(r => r.Pergunta).Where(w => w.PerguntaId == perguntaId).ToList();               
 
             var pergunta = db.Perguntas.Where(w => w.Id == perguntaId).ToList();            
 
@@ -59,7 +59,7 @@ namespace Projeto.TCC.Painel.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            ViewBag.AtributoId = new SelectList(db.Atributos, "Id", "Titulo");
+            ViewBag.PerfilId = new SelectList(db.Perfils, "Id", "Titulo");
             ViewBag.PerguntaId = perguntaId;
             return View();
         }
@@ -69,7 +69,7 @@ namespace Projeto.TCC.Painel.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include="Id,Titulo,PerguntaId,AtributoId")] Resposta resposta)
+        public ActionResult Create([Bind(Include="Id,Titulo,PerguntaId,PerfilId")] Resposta resposta)
         {
             if (ModelState.IsValid)
             {
@@ -78,7 +78,7 @@ namespace Projeto.TCC.Painel.Controllers
                 return RedirectToAction("Index", new { perguntaId = resposta.PerguntaId });
             }
 
-            ViewBag.AtributoId = new SelectList(db.Atributos, "Id", "Titulo", resposta.AtributoId);
+            ViewBag.PerfilId = new SelectList(db.Perfils, "Id", "Titulo", resposta.PerfilId);
             ViewBag.PerguntaId = resposta.PerguntaId;
             return View(resposta);
         }
@@ -95,7 +95,7 @@ namespace Projeto.TCC.Painel.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.AtributoId = new SelectList(db.Atributos, "Id", "Titulo", resposta.AtributoId);
+            ViewBag.PerfilId = new SelectList(db.Perfils, "Id", "Titulo", resposta.PerfilId);
             ViewBag.PerguntaId = new SelectList(db.Perguntas, "Id", "Titulo", resposta.PerguntaId);
             return View(resposta);
         }
@@ -105,7 +105,7 @@ namespace Projeto.TCC.Painel.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include="Id,Titulo,PerguntaId,AtributoId")] Resposta resposta)
+        public ActionResult Edit([Bind(Include="Id,Titulo,PerguntaId,PerfilId")] Resposta resposta)
         {
             if (ModelState.IsValid)
             {
@@ -113,7 +113,7 @@ namespace Projeto.TCC.Painel.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index", new { perguntaId = resposta.PerguntaId });
             }
-            ViewBag.AtributoId = new SelectList(db.Atributos, "Id", "Titulo", resposta.AtributoId);
+            ViewBag.PerfilId = new SelectList(db.Perfils, "Id", "Titulo", resposta.PerfilId);
             ViewBag.PerguntaId = new SelectList(db.Perguntas, "Id", "Titulo", resposta.PerguntaId);
             return View(resposta);
         }

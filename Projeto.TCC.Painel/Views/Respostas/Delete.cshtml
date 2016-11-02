@@ -12,11 +12,11 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Atributo.Titulo)
+            @Html.DisplayNameFor(model => model.Perfil.Titulo)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Atributo.Titulo)
+            @Html.DisplayFor(model => model.Perfil.Titulo)
         </dd>
 
         <dt>
@@ -42,7 +42,7 @@
 
         <div class="form-actions no-color">
             <input type="submit" value="Deletar" class="btn btn-default" /> |
-            @Html.ActionLink("Voltar para Respostas", "Index", new { perguntaId = Model.PerguntaId })
+            @Html.ActionLink("Voltar para Respostas", "Index", new { perguntaId = Model.PerguntaId }, new { @class = "btn btn-default" })
         </div>
     }
 </div>

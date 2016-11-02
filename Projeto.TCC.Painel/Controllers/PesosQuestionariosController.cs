@@ -15,9 +15,13 @@ namespace Projeto.TCC.Painel.Controllers
         private ProjetoTCCPainelContext db = new ProjetoTCCPainelContext();
 
         // GET: /PesosQuestionarios/
-        public ActionResult Index()
+        public ActionResult Index(int questionarioId)
         {
-            var pesoquestionarios = db.PesoQuestionarios.Include(p => p.Atributos).Include(p => p.Questionarios);
+            var pesoquestionarios = db.PesoQuestionarios.Include(p => p.Perfils).Include(p => p.Questionarios).Where(w => w.QuestionarioId == questionarioId);
+
+            ViewBag.Questionario = db.Questionarios.Where(w => w.Id == questionarioId).Select(s => s.Nome).FirstOrDefault();
+            ViewBag.QuestionarioId = questionarioId; 
+
             return View(pesoquestionarios.ToList());
         }
 
@@ -37,10 +41,10 @@ namespace Projeto.TCC.Painel.Controllers
         }
 
         // GET: /PesosQuestionarios/Create
-        public ActionResult Create()
+        public ActionResult Create(int questionarioId)
         {
-            ViewBag.AtributoId = new SelectList(db.Atributos, "Id", "Titulo");
-            ViewBag.QuestionarioId = new SelectList(db.Questionarios, "Id", "Nome");
+            ViewBag.PerfilId = new SelectList(db.Perfils, "Id", "Titulo");
+            ViewBag.QuestionarioId = questionarioId;
             return View();
         }
 
@@ -49,17 +53,17 @@ namespace Projeto.TCC.Painel.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include="Id,QuestionarioId,AtributoId,Peso")] PesoQuestionario pesoquestionario)
+        public ActionResult Create([Bind(Include="Id,QuestionarioId,PerfilId,Peso")] PesoQuestionario pesoquestionario)
         {
             if (ModelState.IsValid)
             {
                 db.PesoQuestionarios.Add(pesoquestionario);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { questionarioId = pesoquestionario.QuestionarioId });
             }
 
-            ViewBag.AtributoId = new SelectList(db.Atributos, "Id", "Titulo", pesoquestionario.AtributoId);
-            ViewBag.QuestionarioId = new SelectList(db.Questionarios, "Id", "Nome", pesoquestionario.QuestionarioId);
+            ViewBag.PerfilId = new SelectList(db.Perfils, "Id", "Titulo", pesoquestionario.PerfilId);
+            ViewBag.QuestionarioId = pesoquestionario.QuestionarioId;
             return View(pesoquestionario);
         }
 
@@ -75,7 +79,7 @@ namespace Projeto.TCC.Painel.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.AtributoId = new SelectList(db.Atributos, "Id", "Titulo", pesoquestionario.AtributoId);
+            ViewBag.PerfilId = new SelectList(db.Perfils, "Id", "Titulo", pesoquestionario.PerfilId);
             ViewBag.QuestionarioId = new SelectList(db.Questionarios, "Id", "Nome", pesoquestionario.QuestionarioId);
             return View(pesoquestionario);
         }
@@ -85,16 +89,16 @@ namespace Projeto.TCC.Painel.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include="Id,QuestionarioId,AtributoId,Peso")] PesoQuestionario pesoquestionario)
+        public ActionResult Edit([Bind(Include="Id,QuestionarioId,PerfilId,Peso")] PesoQuestionario pesoquestionario)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(pesoquestionario).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { questionarioId = pesoquestionario.QuestionarioId });
             }
-            ViewBag.AtributoId = new SelectList(db.Atributos, "Id", "Titulo", pesoquestionario.AtributoId);
-            ViewBag.QuestionarioId = new SelectList(db.Questionarios, "Id", "Nome", pesoquestionario.QuestionarioId);
+            ViewBag.PerfilId = new SelectList(db.Perfils, "Id", "Titulo", pesoquestionario.PerfilId);
+            ViewBag.QuestionarioId = pesoquestionario.QuestionarioId;
             return View(pesoquestionario);
         }
 
@@ -121,7 +125,7 @@ namespace Projeto.TCC.Painel.Controllers
             PesoQuestionario pesoquestionario = db.PesoQuestionarios.Find(id);
             db.PesoQuestionarios.Remove(pesoquestionario);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", pesoquestionario.QuestionarioId);
         }
 
         protected override void Dispose(bool disposing)

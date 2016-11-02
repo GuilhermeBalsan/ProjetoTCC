@@ -16,12 +16,12 @@ namespace Projeto.TCC.Painel.Controllers
         private ProjetoTCCPainelContext db = new ProjetoTCCPainelContext();
 
         // GET: /Relatorios/
-        public ActionResult Index(int atributoId, string mensagem = "")
+        public ActionResult Index(int PerfilId, string mensagem = "")
         {
-            var relatorios = db.Relatorios.Include(r => r.Atributo).Where(w => w.AtributoId == atributoId);
+            var relatorios = db.Relatorios.Include(r => r.Perfil).Where(w => w.PerfilId == PerfilId);
 
-            ViewBag.AtributoId = atributoId;
-            ViewBag.Atributo = db.Atributos.Where(w => w.Id == atributoId).Select(s => s.Titulo).FirstOrDefault();
+            ViewBag.PerfilId = PerfilId;
+            ViewBag.Perfil = db.Perfils.Where(w => w.Id == PerfilId).Select(s => s.Titulo).FirstOrDefault();
             ViewBag.Mensagem = mensagem;
 
             return View(relatorios.ToList());
@@ -49,17 +49,17 @@ namespace Projeto.TCC.Painel.Controllers
         }
 
         // GET: /Relatorios/Create
-        public ActionResult Create(int atributoId)
+        public ActionResult Create(int PerfilId)
         {
-            int relatoriosCount = db.Relatorios.Where(w => w.Atributo.Id == atributoId).Count();
+            int relatoriosCount = db.Relatorios.Where(w => w.Perfil.Id == PerfilId).Count();
 
             if (relatoriosCount > 0)
             {
-                string mensagem = "Já existe um relatório cadastrado para esse atributo";
-                return RedirectToAction("Index", new { atributoId = atributoId, mensagem = mensagem });
+                string mensagem = "Já existe um relatório cadastrado para esse Perfil";
+                return RedirectToAction("Index", new { PerfilId = PerfilId, mensagem = mensagem });
             }
 
-            ViewBag.AtributoId = atributoId;
+            ViewBag.PerfilId = PerfilId;
             return View();
         }
 
@@ -68,23 +68,23 @@ namespace Projeto.TCC.Painel.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include="Id,Nome,Mensagem,AtributoId")] Relatorio relatorio)
+        public ActionResult Create([Bind(Include="Id,Nome,Mensagem,PerfilId")] Relatorio relatorio)
         {
             if (ModelState.IsValid)
             {
-                int count = db.Relatorios.Where(w => w.AtributoId == relatorio.AtributoId).Count();
+                int count = db.Relatorios.Where(w => w.PerfilId == relatorio.PerfilId).Count();
 
                 if (count > 0)
-                    return RedirectToAction("Index", new { atributoId = relatorio.AtributoId });
+                    return RedirectToAction("Index", new { PerfilId = relatorio.PerfilId });
 
                 relatorio.Mensagem = relatorio.Mensagem.Replace("<img", "<img class=\"img-responsive\"");
                 relatorio.Mensagem = WebUtility.HtmlEncode(relatorio.Mensagem);
                 db.Relatorios.Add(relatorio);
                 db.SaveChanges();
-                return RedirectToAction("Index", new { atributoId = relatorio.AtributoId });
+                return RedirectToAction("Index", new { PerfilId = relatorio.PerfilId });
             }
 
-            ViewBag.AtributoId = relatorio.AtributoId;
+            ViewBag.PerfilId = relatorio.PerfilId;
             return View(relatorio);
         }
 
@@ -105,7 +105,7 @@ namespace Projeto.TCC.Painel.Controllers
 
             ViewBag.MensagemHTML = mensagemFormatada;
 
-            //ViewBag.AtributoId = new SelectList(db.Atributos, "Id", "Titulo", relatorio.AtributoId);
+            //ViewBag.PerfilId = new SelectList(db.Perfils, "Id", "Titulo", relatorio.PerfilId);
 
             return View(relatorio);
         }
@@ -115,7 +115,7 @@ namespace Projeto.TCC.Painel.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include="Id,Nome,Mensagem,AtributoId")] Relatorio relatorio)
+        public ActionResult Edit([Bind(Include="Id,Nome,Mensagem,PerfilId")] Relatorio relatorio)
         {
             if (ModelState.IsValid)
             {
@@ -123,9 +123,9 @@ namespace Projeto.TCC.Painel.Controllers
                 relatorio.Mensagem = WebUtility.HtmlEncode(relatorio.Mensagem);
                 db.Entry(relatorio).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index", new { atributoId = relatorio.AtributoId });
+                return RedirectToAction("Index", new { PerfilId = relatorio.PerfilId });
             }
-            ViewBag.AtributoId = relatorio.AtributoId;
+            ViewBag.PerfilId = relatorio.PerfilId;
             return View(relatorio);
         }
 
@@ -141,6 +141,10 @@ namespace Projeto.TCC.Painel.Controllers
             {
                 return HttpNotFound();
             }
+
+            var descricaoFormatada = WebUtility.HtmlDecode(relatorio.Mensagem);
+            ViewBag.DescricaoHTML = descricaoFormatada;
+
             return View(relatorio);
         }
 
@@ -152,7 +156,7 @@ namespace Projeto.TCC.Painel.Controllers
             Relatorio relatorio = db.Relatorios.Find(id);
             db.Relatorios.Remove(relatorio);
             db.SaveChanges();
-            return RedirectToAction("Index", new { atributoId = relatorio.AtributoId });
+            return RedirectToAction("Index", new { PerfilId = relatorio.PerfilId });
         }
 
         protected override void Dispose(bool disposing)

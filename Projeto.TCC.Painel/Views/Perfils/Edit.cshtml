@@ -1,4 +1,4 @@
-﻿@model Projeto.TCC.Painel.Models.Atributo
+﻿@model Projeto.TCC.Painel.Models.Perfil
 
 @{
     ViewBag.Title = "Editar";
@@ -12,7 +12,7 @@
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>Atributo</h4>
+        <h4>Perfil</h4>
         <hr />
         @Html.ValidationSummary(true)
         @Html.HiddenFor(model => model.Id)
@@ -34,7 +34,7 @@
 }
 
 <div>
-    @Html.ActionLink("Voltar para Atributos", "Index")
+    @Html.ActionLink("Voltar para Perfils", "Index", null, new { @class = "btn btn-default" })
 </div>
 
 @section Scripts {
