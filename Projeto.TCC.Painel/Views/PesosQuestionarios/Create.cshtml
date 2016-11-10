@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_LayoutAdm.cshtml";
 }
 
-<h2>Create</h2>
+<h2>Criar</h2>
 
 
 @using (Html.BeginForm()) 
@@ -13,7 +13,7 @@
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>PesoQuestionario</h4>
+        <h4>Peso Questionario</h4>
         <hr />
         @Html.ValidationSummary(true)
 
@@ -28,7 +28,7 @@
         <input type="hidden" value="@ViewBag.QuestionarioId" id="QuestionarioId" name="QuestionarioId" />
 
         <div class="form-group">
-            @Html.LabelFor(model => model.PerfilId, "PerfilId", new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.PerfilId, "Perfil", new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownList("PerfilId", String.Empty)
                 @Html.ValidationMessageFor(model => model.PerfilId)
@@ -45,7 +45,7 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Criar" class="btn btn-default" />
             </div>
         </div>
     </div>

@@ -11,22 +11,12 @@
     @RenderSection("scripts", required: false)
     <link rel="stylesheet" type="text/css" href="~/Content/sidebar.css">
     <link rel="stylesheet" type="text/css" href="~/Content/editor.css">
-    <link rel="stylesheet" href="~/Content/font-awesome.min.css">
-    <link rel="stylesheet" href="~/Content/chartist.min.css">    
+    <link rel="stylesheet" href="~/Content/font-awesome.min.css">   
    
     <script src="~/Scripts/editor.js"></script>
-    <script src="~/Scripts/chartist.min.js"></script>
-
-    <script src="~/Scripts/tableExport.js"></script>
-    <script src="~/Scripts/jquery.base64.js"></script>
-    <script src="~/Scripts/sprintf.js"></script>
-    <script src="~/Scripts/jspdf.js"></script>
-    <script src="~/Scripts/base64.js"></script>
-
-
     
 </head>
-<body>            
+<body class="adm">            
     <div id="wrapper">
 
         <div class="overlay"></div>       
@@ -101,6 +91,9 @@
         </div>
         <!-- /#page-content-wrapper -->
 
+    </div>    
+    <div id="bg" style="width: 100%; position: relative; bottom: 0px; left: 0px; height: 200px;">
+        <img src="/img/fundo3.png" width="100%" draggable="false" />
     </div>
 </body>
 </html>
@@ -123,16 +116,20 @@
                 trigger.removeClass('is-open');
                 trigger.addClass('is-closed');
                 isClosed = false;
+                $('#bg').show();
             } else {
                 overlay.show();
                 trigger.removeClass('is-closed');
                 trigger.addClass('is-open');
                 isClosed = true;
+                $('#bg').hide();
             }
         }
 
         $('[data-toggle="offcanvas"]').click(function () {
             $('#wrapper').toggleClass('toggled');
         });
+
+
     });
 </script>

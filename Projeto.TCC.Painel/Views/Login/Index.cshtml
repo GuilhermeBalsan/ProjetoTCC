@@ -37,10 +37,18 @@
             <div class="container">
                 <div class="row">
                     <div class="col-sm-8 col-sm-offset-2 text">
+                        <img src="/img/logo.png" width="250" />
+
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-8 col-sm-offset-2 text">
                         <h1><strong>Acesso Administrativo</strong></h1>
 
                     </div>
                 </div>
+                
                 <div class="row">
                     <div class="col-sm-6 col-sm-offset-3 form-box">
                         <div class="form-top">
@@ -58,7 +66,7 @@
                                 <div class="form-group">
 
                                     @Html.LabelFor(model => model.Nome, new { @class = "sr-only" })
-                                    @Html.TextBoxFor(model => model.Nome, new { @class = "form-username form-control", placeholder = "Candidato" })                                    
+                                    @Html.TextBoxFor(model => model.Nome, new { @class = "form-username form-control", placeholder = "Usuário" })                                    
                                 </div>
                                 <div class="form-group">                                   
                                     @Html.LabelFor(model => model.Senha, new { @class = "sr-only" })
@@ -86,7 +94,7 @@
         /*
             Fullscreen background
         */
-        $.backstretch("/img/bg.jpg");
+        $.backstretch("/img/site3.jpg");
 
         /*
             Form validation

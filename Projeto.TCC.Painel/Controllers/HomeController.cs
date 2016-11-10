@@ -22,12 +22,18 @@ namespace Projeto.TCC.Painel.Controllers
 
         private static List<RespostasFormulario> listRespostas = new List<RespostasFormulario>();        
 
-        public ActionResult Index(bool erro = false)
+        public ActionResult Index(int erro = 0)
         {
-            if (erro)
+            if (erro == 1)
             {
                 @ViewBag.Mensagem = "Candidato ou Senha inválidos";
-                erro = false;
+                erro = 0;
+            }
+
+            if (erro == 2)
+            {
+                @ViewBag.Mensagem = "Teste já realizado por este Candidato";
+                erro = 0;
             }
 
             Session.RemoveAll();
@@ -37,20 +43,30 @@ namespace Projeto.TCC.Painel.Controllers
         public ActionResult Sessao(string Nome, string Senha)
         {
             Candidato Candidato = db.Candidatos.Where(w => w.Nome == Nome && w.Senha == Senha).FirstOrDefault();
+            
 
             if(Candidato != null)
             {
-                Session["CandidatoId"] = Candidato.Id;
-                Session["Nome"] = Candidato.Nome.ToString();
-                Session["Email"] = Candidato.Email.ToString();
-                Session["QuestionarioId"] = Convert.ToInt32(Candidato.QuestionarioId);
-                Session["Questionario"] = Candidato.Questionario.Nome.ToString();                
+                Resultado resultado = db.Resultados.Where(w => w.CandidatoId == Candidato.Id).FirstOrDefault();
 
-                return RedirectToAction("Perguntas");
+                if (resultado == null)
+                {
+                    Session["CandidatoId"] = Candidato.Id;
+                    Session["Nome"] = Candidato.Nome.ToString();
+                    Session["Email"] = Candidato.Email.ToString();
+                    Session["QuestionarioId"] = Convert.ToInt32(Candidato.QuestionarioId);
+                    Session["Questionario"] = Candidato.Questionario.Nome.ToString();
+
+                    return RedirectToAction("Perguntas");
+                }
+                else
+                {
+                    return RedirectToAction("Index", new { erro = 2 });
+                }
             }
             else
             {
-                return RedirectToAction("Index", new { erro = true });
+                return RedirectToAction("Index", new { erro = 1 });
             }
            
             

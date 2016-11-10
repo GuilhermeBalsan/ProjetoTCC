@@ -386,7 +386,7 @@ hr {
   margin-top: 20px;
   margin-bottom: 20px;
   border: 0;
-  border-top: 1px solid #eeeeee;
+  border-top: 1px solid #000000;
 }
 
 .sr-only {
@@ -2050,8 +2050,9 @@ fieldset[disabled] .btn {
 
 .btn-default {
   color: #333333;
-  background-color: #ffffff;
-  border-color: #cccccc;
+  background-color: #f5eeea;
+  border-color: #000000;
+  font-weight: bold;
 }
 
 .btn-default:hover,
@@ -4193,7 +4194,8 @@ textarea.input-group-sm > .input-group-btn > .btn {
 
 .navbar-brand {
   float: left;
-  padding: 15px 15px;
+  /*padding: 15px 15px;*/
+  padding: 0px;
   font-size: 18px;
   line-height: 20px;
 }
@@ -4502,7 +4504,7 @@ textarea.input-group-sm > .input-group-btn > .btn {
 
 .navbar-inverse {
   background-color: #222222;
-  border-color: #080808;
+  /*border-color: #080808;*/
 }
 
 .navbar-inverse .navbar-brand {
@@ -5439,13 +5441,13 @@ a.list-group-item:focus {
 }
 
 .panel-default {
-  border-color: #dddddd;
+  border-color: #000000;
 }
 
 .panel-default > .panel-heading {
   color: #333333;
-  background-color: #f5f5f5;
-  border-color: #dddddd;
+  background-color: #f5eeea;
+  border-color: #000000;
 }
 
 .panel-default > .panel-heading + .panel-collapse .panel-body {

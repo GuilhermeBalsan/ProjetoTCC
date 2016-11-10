@@ -7,6 +7,10 @@
 
 <h2>Deletar</h2>
 
+@if (@ViewBag.Mensagem != null) { 
+<div class="alert alert-danger" role="alert"><strong>@ViewBag.Mensagem</strong></div>
+}
+
 <h3>Você tem certeza que quer deletar?</h3>
 <div>
     <h4>Candidato</h4>
@@ -36,13 +40,7 @@
             @Html.DisplayFor(model => model.Email)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Senha)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Senha)
-        </dd>
+       
 
     </dl>
 

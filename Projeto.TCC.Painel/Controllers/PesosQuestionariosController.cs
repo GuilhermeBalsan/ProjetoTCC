@@ -57,6 +57,12 @@ namespace Projeto.TCC.Painel.Controllers
         {
             if (ModelState.IsValid)
             {
+                var pesoQuestionario = db.PesoQuestionarios.Where(w => w.PerfilId == pesoquestionario.PerfilId && w.QuestionarioId == pesoquestionario.QuestionarioId).FirstOrDefault();
+                if(pesoQuestionario != null)
+                {
+                    db.PesoQuestionarios.Remove(pesoQuestionario);
+                }
+
                 db.PesoQuestionarios.Add(pesoquestionario);
                 db.SaveChanges();
                 return RedirectToAction("Index", new { questionarioId = pesoquestionario.QuestionarioId });
@@ -125,7 +131,7 @@ namespace Projeto.TCC.Painel.Controllers
             PesoQuestionario pesoquestionario = db.PesoQuestionarios.Find(id);
             db.PesoQuestionarios.Remove(pesoquestionario);
             db.SaveChanges();
-            return RedirectToAction("Index", pesoquestionario.QuestionarioId);
+            return RedirectToAction("Index", new { questionarioId = pesoquestionario.QuestionarioId });
         }
 
         protected override void Dispose(bool disposing)

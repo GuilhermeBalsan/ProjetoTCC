@@ -1,4 +1,18 @@
-ALTER PROCEDURE RelatorioQuestionario 
+USE [TCC]
+GO
+
+/****** Object:  StoredProcedure [dbo].[RelatorioQuestionario]    Script Date: 05/11/2016 16:03:32 ******/
+DROP PROCEDURE [dbo].[RelatorioQuestionario]
+GO
+
+/****** Object:  StoredProcedure [dbo].[RelatorioQuestionario]    Script Date: 05/11/2016 16:03:32 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE PROCEDURE [dbo].[RelatorioQuestionario] 
 @QuestionarioID INT
 as
 BEGIN
@@ -134,3 +148,7 @@ IF OBJECT_ID('tempdb..##Detalhes') IS NOT NULL
     DROP TABLE ##Detalhes
 
 END
+
+GO
+
+

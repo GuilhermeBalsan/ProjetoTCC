@@ -110,7 +110,7 @@ namespace Projeto.TCC.Painel.Controllers
         }
 
         // GET: /Candidatos/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(int? id, bool erro = false)
         {
             if (id == null)
             {
@@ -120,6 +120,11 @@ namespace Projeto.TCC.Painel.Controllers
             if (Candidato == null)
             {
                 return HttpNotFound();
+            }
+            if (erro)
+            {
+                ViewBag.Mensagem = "Não é possível apagar o Candidato pois existe resultado associado ao mesmo";
+                erro = false;
             }
             return View(Candidato);
         }
@@ -131,7 +136,14 @@ namespace Projeto.TCC.Painel.Controllers
         {
             Candidato Candidato = db.Candidatos.Find(id);
             db.Candidatos.Remove(Candidato);
-            db.SaveChanges();
+            try
+            {
+                db.SaveChanges();
+            }
+            catch(Exception e)
+            {
+                return RedirectToAction("Delete", new { erro = true, id = id } );
+            }
             return RedirectToAction("Index");
         }
 

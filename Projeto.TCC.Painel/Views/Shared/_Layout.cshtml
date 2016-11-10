@@ -16,26 +16,34 @@
 
 </head>
 <body>
-    <nav class="navbar navbar-default navbar-fixed-top">
+    <nav class="navbar navbar-default navbar-fixed-top navbar-inverse" style="background-image: url(/img/header.jpg); background-repeat: repeat; background-position: center">
         <div class="container">
 
+            @*<div class="col-md-4" style="text-align: left">
+                    <a class="navbar-brand navbar-left" href="#">Brand</a>
+                </div>*@
             <div class="col-md-4" style="text-align: left">
-                <a class="navbar-brand navbar-left" href="#">Brand</a>
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#">
+                        <img alt="Brand" src="/img/logo.png" width="100">
+                    </a>
+                </div>
             </div>
-            <div class="col-md-4" style="text-align: center">
-                <p class="navbar-text" style="float: none;">@Session["Questionario"].ToString()</p>
+            <div class="col-md-4" style="text-align: center; /*height: 96px; line-height: 80px;*/">
+
+                <p class="navbar-text" style="float: none; font-size: 20px;">@Session["Questionario"].ToString()</p>
             </div>
-            <div class="col-md-4" style="text-align: right">
-                <p class="navbar-text navbar-right">@Session["Nome"].ToString()</p>
+            <div class="col-md-4" style="text-align: right; /*height: 96px; line-height: 80px;*/">
+                <p class="navbar-text navbar-right" style="font-size: 20px;">@Session["Nome"].ToString()</p>
             </div>
         </div>
 
     </nav>
-    <div class="container body-content">
+    <div class="container body-content questionario">
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            <p>&copy; @DateTime.Now.Year - STPC</p>
         </footer>
     </div>
 </body>

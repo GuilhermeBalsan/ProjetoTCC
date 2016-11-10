@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_LayoutAdm.cshtml";
 }
 
-<h2>Edit</h2>
+<h2>Editar</h2>
 
 
 @using (Html.BeginForm())
@@ -13,21 +13,23 @@
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>PesoQuestionario</h4>
+        <h4>Peso Questionario</h4>
         <hr />
         @Html.ValidationSummary(true)
         @Html.HiddenFor(model => model.Id)
 
-        <div class="form-group">
+        @*<div class="form-group">
             @Html.LabelFor(model => model.QuestionarioId, "QuestionarioId", new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownList("QuestionarioId", String.Empty)
                 @Html.ValidationMessageFor(model => model.QuestionarioId)
             </div>
-        </div>
+        </div>*@
+
+        @Html.HiddenFor(model => model.QuestionarioId)
 
         <div class="form-group">
-            @Html.LabelFor(model => model.PerfilId, "PerfilId", new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.PerfilId, "Perfil", new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownList("PerfilId", String.Empty)
                 @Html.ValidationMessageFor(model => model.PerfilId)
@@ -44,7 +46,7 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="Salvar" class="btn btn-default" />
             </div>
         </div>
     </div>

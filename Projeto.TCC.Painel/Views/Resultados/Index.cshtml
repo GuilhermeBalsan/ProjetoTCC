@@ -7,7 +7,7 @@
 
 <div class="panel panel-default">
     <div class="panel-heading">Gerenciar Resultados</div>
-    <table class="table table-hover">
+    <table class="table table-hover table-bordered table-condensed">
         <thead>
             <tr>
 
@@ -15,7 +15,7 @@
                     @Html.DisplayNameFor(model => model.Nome)
                 </th>
                 <th>
-                    Detalhes
+                    Ações
                 </th>
             </tr>
         </thead>
@@ -28,7 +28,7 @@
                         @Html.DisplayFor(modelItem => item.Nome)
                     </td>
                     <td>
-                        @Html.ActionLink("Candidatos", "Candidatos", new { id = item.Id })
+                        @Html.ActionLink("Visualizar Candidatos", "Candidatos", new { id = item.Id })
                     </td>
                 </tr>
             }
